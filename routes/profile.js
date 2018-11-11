@@ -3,7 +3,7 @@ var router = express.Router();
 // var connection = require('./../database/mysql')
 var mysql = require('promise-mysql');
 
-/* GET home page. */
+/* GET custom profile page. */
 
 router.get('/:name/profile', function (req, res, next) {
   /** 

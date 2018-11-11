@@ -5,7 +5,7 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">Search</a></li>
-        <li {% if active_nav=='about' %} class="active" {% endif %}><a href="#">About</a></li>
+        <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
         <li><a href="#">Sign In</a></li>
         <li><a href="#">Sign Out</a></li>
         <li {% if active_nav=='profile' %} class="active" {% endif %}><a href={{'/profiles/Username/profile'}}>PROFILE</a></li>
@@ -13,8 +13,8 @@
     </div>
 
     <ul class="sidenav" id="mobile-demo">
-      <li {% if active_nav=='index' %} class="active" {% endif %}><a href="#">SEARCH</a></li>
-      <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/">ABOUT</a></li>
+      <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">SEARCH</a></li>
+      <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">ABOUT</a></li>
       <li><a href="#">SIGN IN</a></li>
       <li><a href="#">SIGN OUT</a></li>
       <li {% if active_nav=='profile' %} class="active" {% endif %}><a href={{'/profiles/Username/profile'}}>PROFILE</a></li>
