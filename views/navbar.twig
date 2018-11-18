@@ -6,8 +6,8 @@
       <ul class="right hide-on-med-and-down">
         <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">Search</a></li>
         <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
-        <li><a href="#">Log In</a></li>
-        <li><a href="#">Sign Up</a></li>
+        <li><a class="modal-trigger" href="#login">Log In</a></li>
+        <li><a class="modal-trigger" href="#signup">Sign Up</a></li>
         <li {% if active_nav=='profile' %} class="active" {% endif %}><a href={{'/profiles/Username/profile'}}>Profile</a></li>
       </ul>
     </div>
@@ -15,9 +15,90 @@
     <ul class="sidenav" id="mobile-demo">
       <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">Search</a></li>
       <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
-      <li><a href="#">Log In</a></li>
-      <li><a href="#">Sign Up</a></li>
+      <li><a class="modal-trigger" href="#login">Log In</a></li>
+      <li><a class="model-trigger" href="#signup">Sign Up</a></li>
       <li {% if active_nav=='profile' %} class="active" {% endif %}><a href={{'/profiles/Username/profile'}}>Profile</a></li>
     </ul>
   </nav>
+</div>
+
+<!-- login Modal Structure -->
+<div id="login" class="modal">
+  <div class="row modal-header teal accent-4">
+    <h2 class="center-align white-text">Log in</h2>
+  </div>
+  <div class="row modal-content">
+    <div class="row">
+      <form class="col s12 m6">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="user" type="text" class="validate">
+            <label for="user">E-Mail/Username</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="pass" type="password" class="validate">
+            <label for="pass">password</label>
+          </div>
+          <div class="row">
+            <a class="col s12 m6 push-m6 right-align" href="#">Password forgotten?</a>
+          </div>
+          <button class="btn waves-effect waves-light col s12 m6 push-m6" type="submit" name="login">log in
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+      <div class="col s12 m6">
+        <div class="row">
+          <a href="#" class="btn waves-effect waves-light col s12 red" name="google">login with google </a>
+        </div>
+        <div class="row">
+          <a href="#" class="btn waves-effect waves-light col s12 blue" name="facebook">login with facebook </a>
+        </div>
+        <div class="row">
+          <a href="#" class="btn waves-effect waves-light col s12 cyan" name="twitter">login with twitter </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- signup Modal Structure -->
+<div id="signup" class="modal">
+  <div class="row modal-header teal accent-4">
+    <h2 class="center-align white-text">Sign up</h2>
+  </div>
+  <div class="row modal-content">
+    <div class="row">
+      <form class="col s12 m6">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="text" class="validate">
+            <label for="email">E-Mail</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="pass1" type="password" class="validate">
+            <label for="pass1">password</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="pass2" type="password" class="validate">
+            <label for="pass2">password</label>
+          </div>
+          <button class="btn waves-effect waves-light col s12 m6 push-m6" type="submit" name="signup">Sign up
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+      <div class="col s12 m6">
+        <div class="row">
+          <a href="#" class="btn waves-effect waves-light col s12 red" name="google">signup with google </a>
+        </div>
+        <div class="row">
+          <a href="#" class="btn waves-effect waves-light col s12 blue" name="facebook">signup with facebook </a>
+        </div>
+        <div class="row">
+          <a href="#" class="btn waves-effect waves-light col s12 cyan" name="twitter">signup with twitter </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
