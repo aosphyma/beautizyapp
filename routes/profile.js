@@ -1,14 +1,23 @@
 var express = require('express');
+var createError = require('http-errors');
 var router = express.Router();
 // var connection = require('./../database/mysql')
 var mysql = require('promise-mysql');
 
 /* GET custom profile page. */
 
+// to test if the given url contains mallicious content
+var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
 router.get('/:name/profile', function (req, res, next) {
   /** 
  * middleware usage of the database
  */
+
+  if (format.test(req.params.name)) {
+    next(createError(404));
+  }
+
   var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -19,10 +28,10 @@ router.get('/:name/profile', function (req, res, next) {
     connection.end();
     return result;
   }).then(function (results) {
-    console.log('result ', results[0]);   
+    console.log('result ', results[0]);
     res.render('profile', {
       active: 'profile',
-      urls: req.baseUrl + '/'+ req.params.name,
+      urls: req.baseUrl + '/' + req.params.name,
       rows: results
     });
   });
@@ -32,6 +41,12 @@ router.get('/:name/offers', function (req, res, next) {
   /** 
  * middleware usage of the database
  */
+
+
+  if (format.test(req.params.name)) {
+    next(createError(404));
+  }
+
   var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -45,7 +60,7 @@ router.get('/:name/offers', function (req, res, next) {
     // console.log('this are the results', results);
     res.render('profile', {
       active: 'offers',
-      urls: req.baseUrl + '/'+ req.params.name,
+      urls: req.baseUrl + '/' + req.params.name,
       rows: results
     });
   });
@@ -55,6 +70,11 @@ router.get('/:name/orders', function (req, res, next) {
   /** 
  * middleware usage of the database
  */
+
+  if (format.test(req.params.name)) {
+    next(createError(404));
+  }
+
   var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -67,40 +87,10 @@ router.get('/:name/orders', function (req, res, next) {
   }).then(function (results) {
     res.render('profile', {
       active: 'orders',
-      urls: req.baseUrl + '/'+ req.params.name,
+      urls: req.baseUrl + '/' + req.params.name,
       rows: results
     });
   });
 });
 
-
-// var result = [];
-
-// function setResult(value) {
-//   result = value;
-//   console.log(result[0]);
-//   // connection.end();
-// }
-
-// router.get('/:name', function (req, res, next) {
-//   //FIXME when a call to refresh the page is called then it crashes
-//   /** 
-//  * middleware usage of the database
-//  */
-//   connection.connect();
-//   connection.query('SELECT * FROM beautizyapp.customer JOIN (beautizyapp.offer, beautizyapp.gallery) ON (beautizyapp.offer.seller_id = beautizyapp.customer.id AND beautizyapp.offer.id = beautizyapp.gallery.offer_id) limit 10;'
-//     , function (err, rows, fields) {
-//       if (err) throw err;
-
-//       // console.log('The solution is: ', rows);
-//       setResult(rows);
-//     });
-//     connection.end();
-//     console.log('this are the results', result);
-//     res.render('profile', {
-//       name: req.params.name,
-//       rows: result
-//     });
-
-// });
 module.exports = router;
