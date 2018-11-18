@@ -1,7 +1,10 @@
 <div class="row">
   <nav>
     <div class="nav-wrapper teal accent-4">
-      <a href="/" class="brand-logo"><img width="65" src="/images/beautizy.ico" alt="Beautizy"></a>
+      <a href="/" class="brand-logo">
+        <img class="hide-on-small-only" width="65" src="/images/beautizy.ico" alt="Beautizy">
+        <img class="hide-on-med-and-up" width="55" src="/images/beautizy.ico" alt="Beautizy">
+      </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">Search</a></li>
