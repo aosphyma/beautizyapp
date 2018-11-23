@@ -43,7 +43,47 @@
     {% if active == 'offers' %}
     <div class="row">
       <div class=" col s11 offset-s1 center">
-        <a class="waves-effect waves-light btn-large"><i class="material-icons left">add</i>new offer</a>
+        <a class="btn-large modal-trigger" href="#offer_modal"><i class="material-icons left">add</i>new offer</a>
+      </div>
+    </div>
+    <!-- login Modal Structure -->
+    <div id="offer_modal" class="modal">
+      <div class="modal-header teal accent-4">
+        <h2 class="center-align white-text">New Offer</h2>
+      </div>
+      <div class="modal-content">
+        <div class="row">
+          <form class="col s12">
+            <div class="input-field col s12">
+              <input id="offer_title" type="text" class="validate">
+              <label for="offer_title">Title</label>
+            </div>
+            <div class="col s12">
+              <label>multiple File Input</label>
+              <div class="file-field input-field">
+                <div class="waves-effect waves-light btn">
+                  <span>Browse</span>
+                  <input type="file" multiple />
+                </div>
+
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload multiple files" />
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="offer_description" class="materialize-textarea"></textarea>
+              <label for="offer_description">Description</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="offer_price" type="number" class="validate">
+              <label for="offer_price">Price</label>
+            </div>
+            <button class="btn waves-effect waves-light col s12 m6 right" type="submit" name="offer">ADD
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
+        </div>
       </div>
     </div>
     {% elseif active == 'orders' %}

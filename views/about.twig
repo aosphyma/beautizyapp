@@ -1,2 +1,178 @@
 {% extends 'layout.twig' %}
 {% set active_nav = 'about' %}
+{% block body %}
+<div class="row">
+    <div class="col s12 m10 push-m1 l8 push-l2 ">
+        <ul class="collapsible popout" data-collapsible="accordion">
+            <li class="active">
+                <div class="collapsible-header teal accent-4 white-text">About Beautizy</div>
+                <div class="collapsible-body">
+                    <p>Beautizy est une plateforme qui a été mise sur pied pour rendre l'accès de la coiffure bzw
+                        beauté à la gente féminine comme masculine plus facile et aussi permettre à celles ou ceux qui
+                        ont des doigts de fées ou des talents cachés l'occasion de les dévoiler au grand jour tout en
+                        se faisant de l'argent. Fini les longs déplacements à la recherche d'une coiffeuse ou un salon
+                        de coiffure , des attentes interminables! Dès à présent en un seul clique vous pouvez vous
+                        prodiguez des services et gagnez de l'argent à la maison sans trop d'efforts et à votre Prix.
+                        Just be Beautizy!
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header teal accent-4 white-text">Les Conditions générales et d'utilisation de
+                    Beautizy</div>
+                <div class="collapsible-body">
+                    <h4>POLITIQUES DE GESTION</h4><br>
+                    <p>
+                        <ul>
+                            <li>Chaque personne qui voudrait offrir ses services doit s’enregistrer par son adresse
+                                email,Twitter, Facebook. <br>
+                                <b>
+                                    Après l’enregistrement elle recevra automatiquement 10 BPs= 2 Euros et puis 10 BPs
+                                    de
+                                    plus lorsqu’elle parviendra à avoir une commande validée (payée). Si cette personne
+                                    arrive à totaliser 100 BPs en maxi 6 mois elle recevra un virement de 20 EUROS.
+                                    Après
+                                    le délai de 6 mois son nombre de BeautizÝPushs(BPs) sera automatiquement remis à O
+                                    BPs.
+                                </b>
+                            </li>
+                            <li>
+                                Celui qui offre ses services a droit à un espace où elle pourra modifier sa photo ainsi
+                                que son profil.
+                            </li>
+                            <li>
+                                La personne qui s'enregistre devra recevoir un message email de confirmation.
+                            </li>
+                            <li>
+                                Quand l’offrant de services aura proposé son prix 3 EUROS sera immédiatement ajouter à
+                                celui-ci (Ce qui apparaîtra pas aux yeux du client).
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header teal accent-4 white-text">Conditions d’inscription à la Plateforme</div>
+                <div class="collapsible-body">
+                    <p>L’utilisation de Plateforme est réservée aux personnes physiques âgées de 16 ans ou plus. Toute
+                        inscription sur la Plateforme par une personne âgée de moins de 16 ans est strictement
+                        interdite. En accédant, utilisant ou vous inscrivant sur la Plateforme, La Plateforme permet
+                        aux Membres de publier et consulter des Annonces ainsi que d’interagir entre eux pour la
+                        réservation de services Vous pouvez consulter les Annonces même si vous n’êtes pas inscrit sur
+                        la Plateforme. En revanche, vous ne pouvez ni publier une Annonce ni réserver une des services
+                        sans avoir, au préalable, créer un Compte et être devenu Membre. <br>
+                        Pour créer votre Compte, vous pouvez :
+                        <ul>
+                            <li>
+                                soit remplir l’ensemble des champs obligatoires figurant sur le formulaire
+                                d’inscription ;
+                            </li>
+                            <li>
+                                soit vous connectez, via notre Plateforme, à votre compte Facebook (ci-après, votre «
+                                Compte Facebook , twitter »). <br>
+                                En utilisant une telle fonctionnalité, vous comprenez que Beautizy aura accès, publiera
+                                sur la Plateforme et conservera certaines informations de votre Compte Facebook ,
+                                twitter . Vous pouvez à tout moment supprimer le lien entre votre Compte et vos Comptes
+                                Facebook , Twitter de votre profil.
+                            </li>
+                        </ul>
+                        Pour vous inscrire sur la Plateforme, vous devez avoir lu et accepter les présentes conditions
+                        générale et d’utilisation. <br>
+                        Garantissez avoir 16 ans ou plus. <br>
+                        A l’occasion de la création de votre Compte, et ce quelle que soit la méthode choisie pour ce
+                        faire, vous vous engagez à fournir des informations personnelles exactes et conformes à la
+                        réalité et à les mettre à jour, par l’intermédiaire de votre profil ou en en avertissant
+                        Beautizy, afin d’en garantir la pertinence et l’exactitude tout au long de votre relation
+                        contractuelle avec Beautizy. <br>
+                        En cas d’inscription par email, vous vous engagez à garder secret le mot de passe choisi lors
+                        de la création de votre Compte et à ne le communiquer à personne.
+                        En cas de perte ou divulgation de votre mot de passe, vous vous engagez à en informer sans
+                        délai Beautizy. Vous êtes seul responsable de l’utilisation faite de votre Compte par un tiers,
+                        tant que vous n’avez pas expressément notifié Beautizy de la perte, l’utilisation frauduleuse
+                        par un tiers ou la divulgation de votre mot de passe à un tiers.
+                        Vous vous engagez à ne pas créer ou utiliser, sous votre propre identité ou celle d’un tiers,
+                        d’autres Comptes que celui initialement créé. <br>
+                        <b>Lorsque vous offrez des services vous acceptez les frais de 3 Euros augmentés par Beautizy
+                            et vous vous engagez à ne pas diffuser ses informations à la ou le client(e).
+                        </b> <br>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header teal accent-4 white-text">Publication des Annonces</div>
+                <div class="collapsible-body">
+                    En tant que Membre, et sous réserve que vous remplissiez les conditions ci-dessous, vous pouvez
+                    créer et publier des Annonces sur la Plateforme en indiquant des informations quant au Service
+                    rendu que vous comptez effectuer (dates/heures et lieux du service et durée, nombre d'options etc.)
+                    Lors de la publication de votre Annonce, vous pouvez indiquer les services en plus que vous pouvez
+                    offrir.
+                    Vous êtes autorisé à publier une Annonce que si vous remplissez l’ensemble des conditions
+                    suivantes: <br>
+                    Vous avez au moins 16 ans <br>
+                    Vous proposez des Annonces que si c’est vous qui rendez ces services. <br>
+                    vous êtes dans la capacité physique d’offrir des services. <br> <br>
+                    <b>Vous reconnaissez être le seul responsable du contenu de l’Annonce que vous publiez sur la
+                        Plateforme. En conséquence, vous déclarez et garantissez l’exactitude et la véracité de toute
+                        information contenue dans votre Annonce et vous engagez à effectuer le service selon les
+                        modalités décrites dans votre Annonce.
+                    </b>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header teal accent-4 white-text">Reservation des services</div>
+                <div class="collapsible-body">
+                    Beautizy a mis en place un système de réservation de coiffures en ligne (la « Réservation ») pour
+                    les services proposés sur la Plateforme.
+                    Les modalités de réservation d’un service dépendent du style de la coiffure envisagée. <br>
+                    Toute utilisation des Services, que ce soit en qualité de coiffeur ou de Client, est nominative. Le
+                    Coiffeur comme le client doivent correspondre à l’identité communiquée à Beautizy .
+                    Toutefois, Beautizy permet à ses Membres de réserver une ou plusieurs Coiffures pour le compte d’un
+                    tiers. Dans ce cas, vous vous engagez à indiquer avec exactitude au coiffeur, au moment de la
+                    Réservation, les prénom, âge et numéro de téléphone de la personne pour le compte de laquelle vous
+                    réservez une coiffure. Il est strictement interdit de réserver une Place pour un mineur se coiffant
+                    seul âgé de moins de 12 mois. Dans le cas où vous réservez un service pour un mineur seul âgé de
+                    plus de 12 mois , vous vous engagez à demander l’accord préalable du coiffeur et à lui fournir une
+                    autorisation des représentants légaux dûment remplie et signée. En ce qui concerne une coiffure ,
+                    nous vous invitons à prendre connaissance des conditions générales du coiffeur concerné. <br>
+                    En outre, la Plateforme est destinée à la réservation de Places pour des personnes physiques.Il est
+                    interdit de publier une Annonce de service pour un Coiffeur autre que vous-même.
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header teal accent-4 white-text"> Système d’avis</div>
+                <div class="collapsible-body">
+                    <b>Fonctionnement</b> <br>
+                    Beautizy vous encourage à laisser un avis sur un Coiffeur (si vous êtes client ) ou un client (si
+                    vous êtes Coiffeur) avec lequel vous avez partagé un service ou avec lequel vous étiez censé
+                    partager un Service. En revanche, vous n’êtes pas autorisé à laisser un avis sur un autre client,
+                    si vous étiez vous-même client, ni un Membre que vous n’avez pas coiffé ou que vous n’étiez pas
+                    censé coiffer. <br>
+                    Votre avis, ainsi que celui laissé par un autre Membre à votre égard, le cas échéant, ne sont
+                    visibles et publiés sur la Plateforme qu’après le plus court des délais suivants :
+                    (i) immédiatement après que vous ayez, tous les deux, laissés un avis . <br>
+                    Vous avez la possibilité de répondre à un avis qu’un autre Membre a laissé sur votre profil suivant
+                    la publication de l’avis laissé à votre égard. L’avis et votre réponse, le cas échéant, seront
+                    publiés sur votre profil. <br>
+                    <b>Modération</b> <br>
+                    Vous reconnaissez et acceptez que Beautizy se réserve la possibilité de ne pas publier ou supprimer
+                    tout avis, toute question, tout commentaire ou toute réponse dont elle jugerait le contenu
+                    contraire aux présentes CGU(Conditions générales d'utilisation). <br>
+                    <b>Seuil</b> <br>
+                    Beautizy se réserve la possibilité de suspendre votre Compte, limiter votre accès aux Services ou
+                    résilier les présentes CGU dans le cas où (i) vous avez reçu au moins trois avis et (ii) la moyenne
+                    des avis que vous avez reçus est égale ou inférieure à 3. <br>
+                    <b>Conditions financières</b> <br>
+                    L’accès et l’inscription à la Plateforme, de même que la recherche, la consultation et la
+                    publication d’Annonces sont gratuits. En revanche, la Réservation est payante dans les conditions
+                    décrites. <br>
+                    <b>Vous reconnaissez être le seul responsable du contenu de la réservation que vous avez fait sur
+                        la Plateforme. En conséquence, vous déclarez et garantissez l’exactitude et la véracité de
+                        toute information contenue dans vos transactions Financières et informations personnelles et
+                        vous engagez à accepter le service selon les modalités décrites dans l'annonce.
+                    </b>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock name %}

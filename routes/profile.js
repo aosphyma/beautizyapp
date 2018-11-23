@@ -30,6 +30,7 @@ router.get('/:name/profile', function (req, res, next) {
   }).then(function (results) {
     console.log('result ', results[0]);
     res.render('profile', {
+      app_title: 'Beautizy - Profile',
       active: 'profile',
       urls: req.baseUrl + '/' + req.params.name,
       rows: results
@@ -41,7 +42,7 @@ router.get('/:name/offers', function (req, res, next) {
   /** 
  * middleware usage of the database
  */
-
+  console.log('this request = ', req);
 
   if (format.test(req.params.name)) {
     next(createError(404));
@@ -59,6 +60,7 @@ router.get('/:name/offers', function (req, res, next) {
   }).then(function (results) {
     // console.log('this are the results', results);
     res.render('profile', {
+      app_title: 'Beautizy - Profile',
       active: 'offers',
       urls: req.baseUrl + '/' + req.params.name,
       rows: results
@@ -86,6 +88,7 @@ router.get('/:name/orders', function (req, res, next) {
     return result;
   }).then(function (results) {
     res.render('profile', {
+      app_title: 'Beautizy - Profile',
       active: 'orders',
       urls: req.baseUrl + '/' + req.params.name,
       rows: results

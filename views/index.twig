@@ -7,30 +7,37 @@
     <p class="center-align">Welcome to {{title}}</p>
   </div>
   <div class="row">
-    <form class="col s12">
+    <form class="col s12" action="/" method="POST">
       <div class="row valign-wrapper">
         <div class="input-field col s12 m8 l4">
-          <input id="place" type="text" class="validate">
+          <i class="material-icons prefix">location_searching</i>
+          <input name="place" id="place" type="text" class="autocomplete">
           <label for="place">Place</label>
         </div>
         <div class="input-field col s12 m8 l4">
-          <input id="name" type="text" class="validate">
-          <label for="name">Hairstyle</label>
+          <i class="material-icons prefix">whatshot</i>
+          <input name="hairstyle" id="hairstyle" type="text" class="validate">
+          <label for="hairstyle">Hairstyle</label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Search
+        <button class="btn waves-effect waves-light" type="submit">Search
           <i class="material-icons right">send</i>
         </button>
       </div>
     </form>
+    {% if place %}
+    <div class="row">
+      <p>paramter:value from the search</p>
+      <p>place:{{place}}</p>
+      <p>hairstyle:{{hairstyle}}</p>
+    </div>
+    {% endif %}
     <div class="col s12 m6 pull-m3 push-m3">
       next steps: <br>
+      -design specs <br>
+      -get from the server (search, profile for login) <br>
+      -search's result page <br>
       -edit the profile <br>
-      -add offer form <br>
-      -upload into server <br>
-      -adapt the search to find order (new page?) <br>
-      -command offer = order <br>
-      -sign up process <br>
-      -log in process <br>
+      -upload into server (signup, offer, edited profile) <br>
       -hash the entities name and values <br>
     </div>
   </div>
