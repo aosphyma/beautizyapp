@@ -1,5 +1,10 @@
 {% extends 'layout.twig' %}
 {% set active_nav = 'index' %}
+{% block parallax_container %}
+<div class="parallax-container">
+  <div class="parallax"><img src="images/gallery/46790457_552395901897913_4885988502832939008_n.jpg"></div>
+</div>
+{% endblock %}
 {% block body %}
 <div class="container">
   <div class="row">
@@ -19,7 +24,7 @@
           <input name="hairstyle" id="hairstyle" type="text" class="validate">
           <label for="hairstyle">Hairstyle</label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit">Search
+        <button class="btn waves-effect waves-light purple darken-2" type="submit">Search
           <i class="material-icons right">send</i>
         </button>
       </div>

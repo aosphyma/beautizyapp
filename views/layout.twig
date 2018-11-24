@@ -17,6 +17,7 @@
 </head>
 
 <body>
+  {% block parallax_container %} {% endblock %}
   {% include 'navbar.twig' with active_nav %}
   {% block body %}{% endblock %}
   <!--JavaScript at end of body for optimized loading-->
@@ -24,11 +25,10 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var sidenav_elems = document.querySelectorAll('.sidenav');
-      var sidenav = M.Sidenav.init(sidenav_elems);
-      var modal_elems = document.querySelectorAll('.modal');
-      var modal = M.Modal.init(modal_elems);
-      var instances = M.Collapsible.init(document.querySelectorAll('.collapsible'));
+      var sidenav = M.Sidenav.init(document.querySelectorAll('.sidenav'));
+      var modal = M.Modal.init(document.querySelectorAll('.modal'));
+      var collapsible = M.Collapsible.init(document.querySelectorAll('.collapsible'));
+      var parallax = M.Parallax.init(document.querySelectorAll('.parallax'));
     });
   </script>
   {% block script %} {% endblock %}
