@@ -8,9 +8,12 @@ a {
   color: #7b1fa2;
 }
 
-
 .parallax-container {
   height: 450px;
+}
+
+#username_text {
+  color: #7b1fa2;
 }
 
 

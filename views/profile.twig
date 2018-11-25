@@ -2,30 +2,40 @@
 {% set active_nav = 'profile' %}
 {% block body %}
 <div class="row">
+
+  {# side navigation #}
   <div class="col s12 m4 l3">
     <div class="row">
-      <div class="collection with-header center-align">
-        <a class="collection-header">
-          <img src="https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-9/29594992_1632136363502622_4060485001386905311_n.jpg?_nc_cat=100&oh=44d44c07d27bc15a21d48dda5dc6482e&oe=5C4B5A67"
-            alt="" class="left responsive-img">
-          <h4>{{rows[0].username}}</h4>
-        </a>
+      <a class="center-align">
+        <div class="card">
+          <div class="card-image">
+            <a class="btn-floating btn-large halfway-fab modal-trigger waves-effect waves-light purple darken-2" href="#edit_pp"><i
+                class="material-icons">edit</i></a>
+            <img class="materialboxed responsive-img" data-caption={{'fun-effect goes here'}} src="/images/gallery/46524038_309529973222904_7558219486847827968_n.jpg">
+          </div>
+          <div id="username_text" class="card-content center-align">
+            <h4>Username</h4>
+            {# <h4>{{rows[0].username}}</h4> #}
+          </div>
+        </div>
+      </a>
+      <div class="collection center-align">
         {% if active == 'profile' %}
-        <a href={{ urls~'/profile' }} class="collection-item active">PROFILE</a>
+        <a href={{ urls~'/profile' }} class="collection-item active">Profile</a>
         {% else %}
-        <a href={{ urls~'/profile' }} class="collection-item">PROFILE</a>
+        <a href={{ urls~'/profile' }} class="collection-item">Profile</a>
         {% endif %}
 
         {% if active == 'offers' %}
-        <a href={{ urls~'/offers' }} class="collection-item active">MY OFFERS</a>
+        <a href={{ urls~'/offers' }} class="collection-item active">My Offers</a>
         {% else %}
-        <a href={{ urls~'/offers' }} class="collection-item">MY OFFERS</a>
+        <a href={{ urls~'/offers' }} class="collection-item">My Offers</a>
         {% endif %}
 
         {% if active == 'orders' %}
-        <a href={{ urls~'/orders' }} class="collection-item active">MY ORDERS</a>
+        <a href={{ urls~'/orders' }} class="collection-item active">My Orders</a>
         {% else %}
-        <a href={{ urls~'/orders' }} class="collection-item">MY ORDERS</a>
+        <a href={{ urls~'/orders' }} class="collection-item">My Orders</a>
         {% endif %}
 
         {# {% if active == 'profile' %}
@@ -39,14 +49,98 @@
       additional content can be added here.
     </div>
   </div>
+
+  {# content rendering #}
   <div class="col s12 m8 l9">
+    {% if active == 'profile' %}
+    <div class="row">
+      <div class=" col s11 offset-s1 center">
+        <a class="btn-large modal-trigger purple darken-2" href="#edit_all"><i class="material-icons left">edit</i>Edit
+          Profile</a>
+      </div>
+    </div>
+
+    <!-- edit all Modal Structure -->
+    <div id="edit_all" class="modal">
+      <div class="modal-header teal accent-4">
+        <h2 class="center-align white-text">Edit Profile</h2>
+      </div>
+      <div class="modal-content">
+        <div class="row">
+          <form class="col s12">
+            <div class="input-field col s12">
+              <input id="username" type="text" name="username" class="validate">
+              <label for="username">Username</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="email" name="email" class="validate"></input>
+              <label for="email">E-Mail</label>
+            </div>
+            <div class="input-field col s12">
+              <input placeholder="Birthdate" id="birthdate" name="birthdate" type="date" class="validate">
+              <label for="birthdate">Birthdate</label>
+            </div>
+            <div class="col s12">
+              <label>Choose a profile picture</label>
+              <div class="file-field input-field">
+                <div class="waves-effect waves-light btn">
+                  <span>Browse</span>
+                  <input type="file" name="picture" />
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload profile picture" />
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <input id="f_name" name="f_name" type="text" class="validate">
+              <label for="f_name">First Name</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="l_name" name="l_name" type="text" class="validate">
+              <label for="l_name">Last Name</label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="funfect" name="funfect" class="materialize-textarea"></textarea>
+              <label for="funfect">Fun-Effect</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="street" name="street" type="text" class="validate">
+              <label for="street">Street</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="zip" name="zip" type="number" class="validate">
+              <label for="zip">ZIP</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="city" name="city" type="text" class="validate">
+              <label for="city">City</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="country" name="country" type="text" class="validate">
+              <label for="country">Country</label>
+            </div>
+            <button class="btn waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+              <i class="material-icons right">cancel</i>
+            </button>
+            <button class="btn waves-effect waves-light col s6 m3 right" type="submit" name="offer">update
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+
     {% if active == 'offers' %}
     <div class="row">
       <div class=" col s11 offset-s1 center">
-        <a class="btn-large modal-trigger purple darken-2" href="#offer_modal"><i class="material-icons left">add</i>new offer</a>
+        <a class="btn-large modal-trigger purple darken-2" href="#offer_modal"><i class="material-icons left">add</i>new
+          offer</a>
       </div>
     </div>
-    <!-- login Modal Structure -->
+    <!-- offer Modal Structure -->
     <div id="offer_modal" class="modal">
       <div class="modal-header teal accent-4">
         <h2 class="center-align white-text">New Offer</h2>
@@ -89,7 +183,8 @@
     {% elseif active == 'orders' %}
     <div class="row">
       <div class=" col s11 offset-s1 center">
-        <a class="waves-effect waves-light btn-large purple darken-2" href="/"><i class="material-icons left">add</i>new order</a>
+        <a class="waves-effect waves-light btn-large purple darken-2" href="/"><i class="material-icons left">add</i>new
+          order</a>
       </div>
     </div>
     {% endif %}
@@ -127,43 +222,302 @@
           <table class="striped centered responsive-table">
             <tbody>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_username"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>Username </td>
                 <td>{{ rows[0].username }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_email"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>E-Mail</td>
                 <td>{{ rows[0].email }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_f_name"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>First Name</td>
                 <td>{{ rows[0].f_name }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_l_name"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>Last Name</td>
                 <td>{{ rows[0].l_name }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_funeffect"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>Fun-Effect</td>
                 <td>{{ rows[0].c_description }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_street"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>street</td>
                 <td>{{ rows[0].c_street }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_zip"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>ZIP</td>
                 <td>{{ rows[0].c_zip }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_city"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>City</td>
                 <td>{{ rows[0].c_town }}</td>
               </tr>
               <tr>
+                <td>
+                  <a class="btn-small modal-trigger purple darken-2" href="#edit_country"><i class="material-icons left">edit</i></a>
+                </td>
                 <td>Country</td>
                 <td>{{ rows[0].c_country }}</td>
               </tr>
             </tbody>
           </table>
+
+
+
+          {# edit modals (single edit) #}
+          <div id="edit_username" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit Username</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="username" type="text" name="username" class="validate">
+                    <label for="username">Username</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">update
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_pp" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit Country</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="col s12">
+                    <label>Choose a profile picture</label>
+                    <div class="file-field input-field">
+                      <div class="waves-effect waves-light btn">
+                        <span>Browse</span>
+                        <input type="file" name="picture" />
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Upload profile picture" />
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_email" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit E-Mail</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="email" type="text" name="email" class="validate">
+                    <label for="email">E-Mail</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_f_name" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit First Name</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="f_name" type="text" name="f_name" class="validate">
+                    <label for="f_name">First Name</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_l_name" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit Last Name</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="l_name" type="text" name="l_name" class="validate">
+                    <label for="l_name">Last Name</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_funeffect" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit Fun-Effect</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="funeffect" type="text" name="funeffect" class="validate">
+                    <label for="funeffect">Fun-Effect</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_street" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit Street</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="street" type="text" name="street" class="validate">
+                    <label for="street">Street</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_zip" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit ZIP Code</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="zip" type="text" name="zip" class="validate">
+                    <label for="zip">ZIP Code</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_city" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit City</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="city" type="text" name="city" class="validate">
+                    <label for="city">City</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="edit_country" class="modal">
+            <div class="modal-header teal accent-4">
+              <h2 class="center-align white-text">Edit Country</h2>
+            </div>
+            <div class="modal-content">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input id="country" type="text" name="country" class="validate">
+                    <label for="country">Country</label>
+                  </div>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" name="offer">CANCEL
+                    <i class="material-icons right">cancel</i>
+                  </button>
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" name="offer">UPDATE
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
         </div>
         {% endif %}
       </div>

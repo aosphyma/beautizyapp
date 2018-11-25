@@ -25,10 +25,13 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var sidenav = M.Sidenav.init(document.querySelectorAll('.sidenav'));
-      var modal = M.Modal.init(document.querySelectorAll('.modal'));
-      var collapsible = M.Collapsible.init(document.querySelectorAll('.collapsible'));
-      var parallax = M.Parallax.init(document.querySelectorAll('.parallax'));
+      var sidenavs = M.Sidenav.init(document.querySelectorAll('.sidenav'));
+      var modals = M.Modal.init(document.querySelectorAll('.modal'));
+      var collapsibles = M.Collapsible.init(document.querySelectorAll('.collapsible'));
+      var parallaxes = M.Parallax.init(document.querySelectorAll('.parallax'));
+      var datepickers = M.Datepicker.init(document.querySelectorAll('.datepicker'));
+      var elems = document.querySelectorAll('.materialboxed');
+      var materialboxed = M.Materialbox.init(document.querySelectorAll('.materialboxed'));
     });
   </script>
   {% block script %} {% endblock %}

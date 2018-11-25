@@ -12,8 +12,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
-  console.log('that post was= ', req.body.place);
-  console.log('that post was= ', req.body.hairstyle);
+  // console.log('that post was= ', req.body.place);
+  // console.log('that post was= ', req.body.hairstyle);
   res.render('index', { 
     app_title: 'Beautizy',
     title: 'Beautizy',
