@@ -1,4 +1,10 @@
 <div class="row">
+  <ul id='profileDropdown' class='dropdown-content purple darken-2'>
+    <li><a class="white-text" href={{'/profiles/Username/profile'}}>My Profile</a></li>
+    <li><a class="white-text" href={{'/profiles/Username/offers'}}>My Offers</a></li>
+    {# <li class="divider" tabindex="-1"></li> #}
+    <li><a class="white-text" href={{'/profiles/Username/orders'}}>My Orders</a></li>
+  </ul>
   <nav>
     <div class="nav-wrapper purple darken-2">
       <a href="/" class="brand-logo">
@@ -11,7 +17,8 @@
         <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
         <li><a class="modal-trigger" href="#login">Log In</a></li>
         <li><a class="modal-trigger" href="#signup">Sign Up</a></li>
-        <li {% if active_nav=='profile' %} class="active" {% endif %}><a href={{'/profiles/Username/profile'}}>Profile</a></li>
+        <li {% if active_nav=='profile' %} class="active" {% endif %}>
+          <a class='dropdown-trigger' data-target='profileDropdown' href="#!">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
 
@@ -20,7 +27,7 @@
       <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
       <li><a class="modal-trigger" href="#login">Log In</a></li>
       <li><a class="model-trigger" href="#signup">Sign Up</a></li>
-      <li {% if active_nav=='profile' %} class="active" {% endif %}><a href={{'/profiles/Username/profile'}}>Profile</a></li>
+      <li {% if active_nav=='profile' %} class="active" {% endif %}><a {#class='dropdown-trigger' data-target='profileDropdown' href="#!"#}>Profile</a></li>
     </ul>
   </nav>
 </div>
@@ -45,7 +52,8 @@
           <div class="row">
             <a class="col s12 m6 push-m6 right-align" href="#">Password forgotten?</a>
           </div>
-          <button class="btn waves-effect waves-light purple darken-2 col s12 m6 push-m6" type="submit" name="login">log in
+          <button class="btn waves-effect waves-light purple darken-2 col s12 m6 push-m6" type="submit" name="login">log
+            in
             <i class="material-icons right">send</i>
           </button>
         </div>
@@ -86,7 +94,8 @@
             <input id="pass2" type="password" class="validate">
             <label for="pass2">password</label>
           </div>
-          <button class="btn waves-effect waves-light purple darken-2 col s12 m6 push-m6" type="submit" name="signup">Sign up
+          <button class="btn waves-effect waves-light purple darken-2 col s12 m6 push-m6" type="submit" name="signup">Sign
+            up
             <i class="material-icons right">send</i>
           </button>
         </div>
