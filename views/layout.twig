@@ -33,7 +33,29 @@
       var elems = document.querySelectorAll('.materialboxed');
       var materialboxed = M.Materialbox.init(document.querySelectorAll('.materialboxed'));
       var dropdowns = M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+      var elems = document.querySelectorAll('.carousel');
+      var carousels = M.Carousel.init(document.querySelectorAll('.carousel'),
+        {
+          indicators: true
+        });
     });
+  </script>
+  <script type="text/javascript">
+    $("#pass1").on("focusout", function (e) {
+      if ($(this).val() != $("#pass2").val()) {
+          $("#pass2").removeClass("valid").addClass("invalid");
+      } else {
+          $("#pass2").removeClass("invalid").addClass("valid");
+      }
+  });
+  
+  $("#pass2").on("keyup", function (e) {
+      if ($("#pass1").val() != $(this).val()) {
+          $(this).removeClass("valid").addClass("invalid");
+      } else {
+          $(this).removeClass("invalid").addClass("valid");
+      }
+  });
   </script>
   {% block script %} {% endblock %}
 </body>

@@ -5,6 +5,14 @@
     {# <li class="divider" tabindex="-1"></li> #}
     <li><a class="white-text" href={{'/profiles/Username/orders'}}>My Orders</a></li>
   </ul>
+
+  <ul id='responsiveprofileDropdown' class='dropdown-content purple darken-2'>
+    <li><a class="white-text" href={{'/profiles/Username/profile'}}>My Profile</a></li>
+    <li><a class="white-text" href={{'/profiles/Username/offers'}}>My Offers</a></li>
+    {# <li class="divider" tabindex="-1"></li> #}
+    <li><a class="white-text" href={{'/profiles/Username/orders'}}>My Orders</a></li>
+  </ul>
+
   <nav>
     <div class="nav-wrapper purple darken-2">
       <a href="/" class="brand-logo">
@@ -23,11 +31,12 @@
     </div>
 
     <ul class="sidenav purple darken-2" id="mobile-demo">
-      <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">Search</a></li>
-      <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
-      <li><a class="modal-trigger" href="#login">Log In</a></li>
-      <li><a class="model-trigger" href="#signup">Sign Up</a></li>
-      <li {% if active_nav=='profile' %} class="active" {% endif %}><a {#class='dropdown-trigger' data-target='profileDropdown' href="#!"#}>Profile</a></li>
+      <li {% if active_nav=='index' %} class="active" {% endif %}><a class="white-text" href="/">Search</a></li>
+      <li {% if active_nav=='about' %} class="active" {% endif %}><a class="white-text" href="/about">About</a></li>
+      <li><a class="modal-trigger white-text" href="#login">Log In</a></li>
+      <li><a class="model-trigger white-text" href="#signup">Sign Up</a></li>
+      <li {% if active_nav=='profile' %} class="active" {% endif %}><a class='dropdown-trigger white-text' data-target='responsiveprofileDropdown'
+          href="#!">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
   </nav>
 </div>
@@ -39,7 +48,7 @@
   </div>
   <div class="row modal-content">
     <div class="row">
-      <form class="col s12 m6">
+      <form class="col s12 m6" action="/users/login" method="POST" name="login">
         <div class="row">
           <div class="input-field col s12">
             <input id="user" type="text" class="validate">
@@ -80,19 +89,19 @@
   </div>
   <div class="row modal-content">
     <div class="row">
-      <form class="col s12 m6">
+      <form class="col s12 m6" action="/users/signup" method="POST">
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="text" class="validate">
-            <label for="email">E-Mail</label>
+            <input id="email" name="email" type="email" class="validate" required>
+            <label for="email" data-error="Please enter an E-Mail">E-Mail</label>
           </div>
           <div class="input-field col s12">
-            <input id="pass1" type="password" class="validate">
-            <label for="pass1">password</label>
+            <input id="pass1" name="pass1" type="password" class="validate" required>
+            <label for="pass1">Password</label>
           </div>
           <div class="input-field col s12">
-            <input id="pass2" type="password" class="validate">
-            <label for="pass2">password</label>
+            <input id="pass2" name="pass2" type="password" required>
+            <label for="pass2" data-error="Password does not match" data-success="Password Matches">Confirm Password</label>
           </div>
           <button class="btn waves-effect waves-light purple darken-2 col s12 m6 push-m6" type="submit" name="signup">Sign
             up

@@ -24,7 +24,7 @@ router.get('/:name/profile', function (req, res, next) {
     password: 'password',
     database: 'beautizyapp'
   }).then(function (connection) {
-    var result = connection.query('SELECT * FROM beautizyapp.customer where beautizyapp.customer.username="superuser" and beautizyapp.customer.password = "hashedsuperpassword";');
+    var result = connection.query('SELECT * FROM beautizyapp.customer where beautizyapp.customer.username="'+req.params.name+'";');
     connection.end();
     return result;
   }).then(function (results) {
