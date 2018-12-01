@@ -6,16 +6,20 @@
     "start": "nodemon ./bin/www --exec babel-node -e js"
   },
   "dependencies": {
+    "connect-busboy": "0.0.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "^4.16.4",
+    "express-fileupload": "^1.0.0",
+    "fs-extra": "^7.0.1",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.4",
     "promise-mysql": "^3.3.1",
     "serve-favicon": "^2.5.0",
-    "twig": "~0.10.3"
+    "twig": "~0.10.3",
+    "use-strict": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
