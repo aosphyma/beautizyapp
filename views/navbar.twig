@@ -1,16 +1,16 @@
 <div class="row">
   <ul id='profileDropdown' class='dropdown-content purple darken-2'>
-    <li><a class="white-text" href={{'/profiles/bla/profile'}}>My Profile</a></li>
-    <li><a class="white-text" href={{'/profiles/bla/offers'}}>My Offers</a></li>
+    <li><a class="white-text" href={{'/profiles/'~ cookies.username ~'/profile'}}>My Profile</a></li>
+    <li><a class="white-text" href={{'/profiles/'~ cookies.username ~'/offers'}}>My Offers</a></li>
     {# <li class="divider" tabindex="-1"></li> #}
-    <li><a class="white-text" href={{'/profiles/bla/orders'}}>My Orders</a></li>
+    <li><a class="white-text" href={{'/profiles/'~ cookies.username ~'/orders'}}>My Orders</a></li>
   </ul>
 
   <ul id='responsiveprofileDropdown' class='dropdown-content purple darken-2'>
-    <li><a class="white-text" href={{'/profiles/bla/profile'}}>My Profile</a></li>
-    <li><a class="white-text" href={{'/profiles/bla/offers'}}>My Offers</a></li>
+    <li><a class="white-text" href={{'/profiles/'~ cookies.username ~'/profile'}}>My Profile</a></li>
+    <li><a class="white-text" href={{'/profiles/'~ cookies.username ~'/offers'}}>My Offers</a></li>
     {# <li class="divider" tabindex="-1"></li> #}
-    <li><a class="white-text" href={{'/profiles/bla/orders'}}>My Orders</a></li>
+    <li><a class="white-text" href={{'/profiles/'~ cookies.username ~'/orders'}}>My Orders</a></li>
   </ul>
 
   <nav>
@@ -23,20 +23,28 @@
       <ul class="right hide-on-med-and-down">
         <li {% if active_nav=='index' %} class="active" {% endif %}><a href="/">Search</a></li>
         <li {% if active_nav=='about' %} class="active" {% endif %}><a href="/about">About</a></li>
+        {% if cookies.userid is not defined and not cookies.userid %}
         <li><a class="modal-trigger" href="#login">Log In</a></li>
         <li><a class="modal-trigger" href="#signup">Sign Up</a></li>
+        {% else %}
         <li {% if active_nav=='profile' %} class="active" {% endif %}>
-          <a class='dropdown-trigger' data-target='profileDropdown' href="#!">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
+          <a class='dropdown-trigger' data-target='profileDropdown' href="#!">{{ cookies.username|capitalize }}<i class="material-icons right">arrow_drop_down</i></a>
+        </li>
+        {% endif %}
       </ul>
     </div>
 
     <ul class="sidenav purple darken-2" id="mobile-demo">
       <li {% if active_nav=='index' %} class="active" {% endif %}><a class="white-text" href="/">Search</a></li>
       <li {% if active_nav=='about' %} class="active" {% endif %}><a class="white-text" href="/about">About</a></li>
+      {% if cookies.userid is not defined and not cookies.userid %}
       <li><a class="modal-trigger white-text" href="#login">Log In</a></li>
       <li><a class="model-trigger white-text" href="#signup">Sign Up</a></li>
+      {% else %}
       <li {% if active_nav=='profile' %} class="active" {% endif %}><a class='dropdown-trigger white-text' data-target='responsiveprofileDropdown'
-          href="#!">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
+          href="#!">{{ cookies.username|capitalize }}<i class="material-icons right">arrow_drop_down</i></a>
+      </li>
+      {% endif %}
     </ul>
   </nav>
 </div>
@@ -51,11 +59,11 @@
       <form class="col s12 m6" action="/users/login" method="POST" name="login">
         <div class="row">
           <div class="input-field col s12">
-            <input id="user" type="text" class="validate">
-            <label for="user">E-Mail/bla</label>
+            <input id="user" name="user" type="text" class="validate">
+            <label for="user">E-Mail/Username</label>
           </div>
           <div class="input-field col s12">
-            <input id="pass" type="password" class="validate">
+            <input id="pass" name="pass" type="password" class="validate">
             <label for="pass">password</label>
           </div>
           <div class="row">

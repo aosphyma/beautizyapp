@@ -8,8 +8,9 @@ router.get('/', function (req, res, next) {
     res.render('about', {
         app_title: 'Beautizy - About',
         active: 'about',
-        urls: req.baseUrl + '/'+ req.params.name
-      });
+        cookies: req.cookies,
+        urls: req.baseUrl + '/' + req.params.name
+    });
 });
 
 

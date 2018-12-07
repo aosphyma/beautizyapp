@@ -4,13 +4,7 @@ var mysql = require('promise-mysql');
 var path = require('path');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
-
 router.post('/update/:id', function (req, res, next) {
-  console.log('update started');
   var pp = undefined;
   if (req.files) {
     (async () => {
@@ -20,7 +14,6 @@ router.post('/update/:id', function (req, res, next) {
           next(createError(500));
         }
       });
-      console.log('File moved');
     })();
   }
 
@@ -76,10 +69,8 @@ router.post('/update/:id', function (req, res, next) {
     connection.end();
     return result;
   }).then(function (results) {
-    console.log('result: ', results);
     res.redirect('/profiles/' + results[0].username + '/profile');
   });
-  console.log('update ended');
 });
 
 
@@ -87,7 +78,6 @@ router.post('/update/:id', function (req, res, next) {
 
 
 router.post('/updateall/:id', function (req, res, next) {
-  console.log('update started');
   mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -105,17 +95,16 @@ router.post('/updateall/:id', function (req, res, next) {
     const city = req.body.city;
     const country = req.body.country;
     var ppath = undefined;
-  if (req.files) {
-    (async () => {
-      ppath = '/images/pps/' + req.files.picture.name;
-      await req.files.picture.mv(path.join(__dirname, '../public', pp), function (err) {
-        if (err) {
-          next(createError(500));
-        }
-      });
-      console.log('File moved');
-    })();
-  }
+    if (req.files) {
+      (async () => {
+        ppath = '/images/pps/' + req.files.picture.name;
+        await req.files.picture.mv(path.join(__dirname, '../public', pp), function (err) {
+          if (err) {
+            next(createError(500));
+          }
+        });
+      })();
+    }
     var query = "UPDATE `beautizyapp`.`customer` SET ";
     if (username) {
       query += "`username`='" + (req.body.username) + "' ";
@@ -147,7 +136,7 @@ router.post('/updateall/:id', function (req, res, next) {
     if (birthday) {
       query += ", `birthday`='" + (req.body.birthday) + "' ";
     }
-    if(ppath) {
+    if (ppath) {
       query += ", `ppath`='" + (req.body.ppath) + "' ";
     }
 
@@ -162,46 +151,69 @@ router.post('/updateall/:id', function (req, res, next) {
     connection.end();
     return result;
   }).then(function (results) {
-    console.log('result: ', results);
     res.redirect('/profiles/' + results[0].username + '/profile');
   });
-  console.log('update ended');
 });
 
 
-
-
-
-router.post('/:type', function (req, res, next) {
-  if (req.params.type == 'login') {
-    console.log('login initiated');
-
-    console.log('login ended');
-  }
-  if (req.params.type == 'signup') {
-    console.log('signup initiated');
-    var email = JSON.stringify(req.body.email);
-    var password = JSON.stringify(req.body.pass1);
+router.post('/signup', function (req, res, next) {
+  mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'beautizyapp'
+  }).then(function (connection) {
+    var email = req.body.email;
+    // todo secure the pass with SHA236
+    var password = req.body.pass1;
     var username = password.slice(1, password.indexOf('@'));
-    if ((/[@]/).test(email) && req.body.pass1 == req.body.pass2) {
-      mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'password',
-        database: 'beautizyapp'
-      }).then(function (connection) {
-        var result = connection.query("INSERT INTO `beautizyapp`.`customer` (`username`, `email`, `password`) VALUES ('" + username + "', '" + email + "', '" + password + "');");
-        connection.end();
-        return result;
-      }).then(function (results) {
-        console.log('result ', results);
-        res.redirect('/profiles/' + username + '/profile');
-      });
+    if (!(/[@]/).test(email) || req.body.pass1 != req.body.pass2) {
+      next(createError(500));
     }
-    console.log('signup ended');
-  }
-  else {
-    next(createError(400));
-  }
+    var result = connection.
+      query("INSERT INTO `beautizyapp`.`customer` (`username`, `email`, `password`) VALUES ('" + username + "', '" + email + "', '" + password + "');")
+      .then(function (data) {
+        var userdata = connection.query("SELECT username FROM beautizyapp.customer where id='" + data.insertId + "';");
+        connection.end();
+        return userdata;
+      });
+    return result;
+  }).then(function (results) {
+    // cookies
+    res.cookie('userid', results.id);
+    res.cookie('username', results.username);
+
+    res.redirect('/profiles/' + results[0].username + '/profile');
+  });
+});
+
+
+router.post('/login', function (req, res, next) {
+  mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'beautizyapp'
+  }).then(function (connection) {
+    var result = undefined;
+    var user = req.body.user;
+    var pass = req.body.pass;
+    if (!(/[@]/).test(user)) {
+      result = connection.query("SELECT * FROM beautizyapp.customer where username='" + user + "' and password='" + pass + "';");
+    } else {
+      result = connection.query("SELECT * FROM beautizyapp.customer where email='" + user + "' and password='" + pass + "';");
+    }
+    connection.end();
+    return result;
+  }).then(function (results) {
+    if (results === []) {
+      res.redirect('/');
+    }
+    //cookies
+    res.cookie('userid', results[0].id);
+    res.cookie('username', results[0].username);
+
+    res.redirect('/profiles/' + results[0].username + '/profile');
+  });
 });
 module.exports = router;

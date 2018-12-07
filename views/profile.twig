@@ -9,8 +9,10 @@
       <a class="center-align">
         <div class="card">
           <div class="card-image">
+              {% if active == 'profile' %}
             <a class="btn-floating btn-large halfway-fab modal-trigger waves-effect waves-light purple darken-2" href="#edit_pp"><i
                 class="material-icons">edit</i></a>
+                {% endif %}
             <img class="materialboxed responsive-img" data-caption={{ rows[0].c_description }} {% if rows[0].ppath %} src = rows[0].ppath {% else %}  src="/images/gallery/46524038_309529973222904_7558219486847827968_n.jpg" {% endif %}>
           </div>
           <div id="username_text" class="card-content center-align">
@@ -84,7 +86,7 @@
               <div class="file-field input-field">
                 <div class="waves-effect waves-light btn">
                   <span>Browse</span>
-                  <input type="file" name="picture" />
+                  <input type="file" accept="image/*" name="picture" />
                 </div>
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text" placeholder="Upload profile picture" />
@@ -142,13 +144,13 @@
     <!-- offer Modal Structure -->
     <div id="offer_modal" class="modal">
       <div class="modal-header purple darken-2">
-        <h2 class="center-align white-text">New Offer</h2>
+        <h2 class="center-align white-text">Create a new Offer</h2>
       </div>
       <div class="modal-content">
         <div class="row">
-          <form class="col s12">
+          <form class="col s12" method="POST" enctype="multipart/form-data" action="/offers">
             <div class="input-field col s12">
-              <input id="offer_title" type="text" class="validate">
+              <input id="offer_title" name="title" type="text" class="validate">
               <label for="offer_title">Title</label>
             </div>
             <div class="col s12">
@@ -156,7 +158,7 @@
               <div class="file-field input-field">
                 <div class="waves-effect waves-light btn">
                   <span>Browse</span>
-                  <input type="file" multiple />
+                  <input name="pictures" type="file" accept="image/*" multiple />
                 </div>
 
                 <div class="file-path-wrapper">
@@ -165,11 +167,11 @@
               </div>
             </div>
             <div class="input-field col s12">
-              <textarea id="offer_description" class="materialize-textarea"></textarea>
+              <textarea name="description" id="offer_description" class="materialize-textarea"></textarea>
               <label for="offer_description">Description</label>
             </div>
             <div class="input-field col s12">
-              <input id="offer_price" type="number" class="validate">
+              <input name="price" id="offer_price" type="number" class="validate">
               <label for="offer_price">Price</label>
             </div>
             <button class="btn waves-effect waves-light col s12 m6 right" type="submit" >ADD
@@ -329,7 +331,7 @@
                     <div class="file-field input-field">
                       <div class="waves-effect waves-light btn">
                         <span>Browse</span>
-                        <input type="file" name="picture" />
+                        <input type="file" accept="image/*" name="picture" />
                       </div>
                       <div class="file-path-wrapper">
                         <input class="file-path validate" type="text" placeholder="Upload profile picture" />

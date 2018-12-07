@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
     app_title: 'Beautizy',
     title: 'Beautizy',
     info: 'Please beware that you can use the search bar to search for anyone to make you a hairstylte',
+    cookies: req.cookies
   });
 });
 
@@ -18,7 +19,7 @@ router.post('/', function(req, res, next){
     app_title: 'Beautizy',
     title: 'Beautizy',
     info: 'Search for a hairstyle at any place',
-    place: req.body.place,
+    cookies: req.cookies,
     hairstyle: req.body.hairstyle
   });
 });
