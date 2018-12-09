@@ -4,11 +4,20 @@ var mysql = require('promise-mysql');
 var path = require('path');
 var router = express.Router();
 
+router.get('/logout', function (req, res, next) {
+  if (req.cookies === {} || req.cookies === undefined) {
+    next(createError(400));
+  }
+  res.clearCookie('userid');
+  res.clearCookie('username');
+  res.redirect('/');
+});
+
 router.post('/update/:id', function (req, res, next) {
   var pp = undefined;
   if (req.files) {
     (async () => {
-      pp = '/images/pps/' + req.files.picture.name;
+      pp = '/images/pps/' + req.params.id + '' + req.files.picture.name;
       await req.files.picture.mv(path.join(__dirname, '../public', pp), function (err) {
         if (err) {
           next(createError(500));
@@ -97,7 +106,7 @@ router.post('/updateall/:id', function (req, res, next) {
     var ppath = undefined;
     if (req.files) {
       (async () => {
-        ppath = '/images/pps/' + req.files.picture.name;
+        pp = '/images/pps/' + req.params.id + '' + req.files.picture.name;
         await req.files.picture.mv(path.join(__dirname, '../public', pp), function (err) {
           if (err) {
             next(createError(500));

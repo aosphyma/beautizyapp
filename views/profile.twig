@@ -9,14 +9,15 @@
       <a class="center-align">
         <div class="card">
           <div class="card-image">
-              {% if active == 'profile' %}
+            {% if active == 'profile' %}
             <a class="btn-floating btn-large halfway-fab modal-trigger waves-effect waves-light purple darken-2" href="#edit_pp"><i
                 class="material-icons">edit</i></a>
-                {% endif %}
-            <img class="materialboxed responsive-img" data-caption={{ rows[0].c_description }} {% if rows[0].ppath %} src = rows[0].ppath {% else %}  src="/images/gallery/46524038_309529973222904_7558219486847827968_n.jpg" {% endif %}>
+            {% endif %}
+            <img class="materialboxed responsive-img" {% if customer.c_description %} data-caption={{ "" ~ customer.c_description }}
+              {% else %} data-caption="There is no caption available for this picture" {% endif %} src={{ customer.ppath ~ " responsive-img" }}>
           </div>
           <div id="username_text" class="card-content center-align">
-            <h4>{{rows[0].username}}</h4>
+            <h4>{{customer.username}}</h4>
           </div>
         </div>
       </a>
@@ -68,7 +69,7 @@
       </div>
       <div class="modal-content">
         <div class="row">
-          <form class="col s12" name="edit_all" method="POST" encType="multipart/form-data" action={{'/users/updateall/' ~ rows[0].id}}>
+          <form class="col s12" name="edit_all" method="POST" encType="multipart/form-data" action={{'/users/updateall/' ~ customer.id}}>
             <div class="input-field col s12">
               <input id="username" type="text" name="username" class="validate" required>
               <label for="username">Username</label>
@@ -121,10 +122,10 @@
               <input id="country" name="country" type="text" class="validate" required>
               <label for="country">Country</label>
             </div>
-            <button class="btn waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+            <button class="btn waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
               <i class="material-icons right">cancel</i>
             </button>
-            <button class="btn waves-effect waves-light col s6 m3 right" type="submit" >update
+            <button class="btn waves-effect waves-light col s6 m3 right" type="submit">update
               <i class="material-icons right">send</i>
             </button>
           </form>
@@ -174,7 +175,7 @@
               <input name="price" id="offer_price" type="number" class="validate">
               <label for="offer_price">Price</label>
             </div>
-            <button class="btn waves-effect waves-light col s12 m6 right" type="submit" >ADD
+            <button class="btn waves-effect waves-light col s12 m6 right" type="submit">ADD
               <i class="material-icons right">send</i>
             </button>
           </form>
@@ -191,9 +192,9 @@
     {% endif %}
 
     <div class="row">
-      {% if active == 'offers' or active == 'orders' %}
+      {% if active == 'offers' %}
       {#Begin objects#}
-      {% for row in rows %}
+      {% for row in offers %}
       <div class="col m2 l1"></div>
       <div class="col m8 l5">
         <div class="row">
@@ -213,6 +214,30 @@
         </div>
       </div>
       {% endfor %}
+
+      {% elseif active == 'orders' %}
+      {#Begin objects#}
+      {% for row in orders %}
+      <div class="col m2 l1"></div>
+      <div class="col m8 l5">
+        <div class="row">
+          <div class="card sticky-action hoverable">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src={{row.path}}>
+            </div>
+            <div class="card-action">
+              <span class="card-title activator grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">more_vert</i></span>
+              <p><a href="#">Place an order</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">close</i></span>
+              <p>{{row.o_description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
       {#End objects#}
       {% else %}
       <div class="col s11 offset-s1 center">
@@ -227,70 +252,70 @@
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_username"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>Username </td>
-                <td>{{ rows[0].username }}</td>
+                <td>{{ customer.username }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_email"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>E-Mail</td>
-                <td>{{ rows[0].email }}</td>
+                <td>{{ customer.email }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_f_name"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>First Name</td>
-                <td>{{ rows[0].f_name }}</td>
+                <td>{{ customer.f_name }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_l_name"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>Last Name</td>
-                <td>{{ rows[0].l_name }}</td>
+                <td>{{ customer.l_name }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_birthday"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>Birthday</td>
-                <td>{{ rows[0].birthday }}</td>
+                <td>{{ customer.birthday }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_funeffect"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>Fun-Effect</td>
-                <td>{{ rows[0].c_description }}</td>
+                <td>{{ customer.c_description }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_street"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>street</td>
-                <td>{{ rows[0].c_street }}</td>
+                <td>{{ customer.c_street }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_zip"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>ZIP</td>
-                <td>{{ rows[0].c_zip }}</td>
+                <td>{{ customer.c_zip }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_city"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>City</td>
-                <td>{{ rows[0].c_town }}</td>
+                <td>{{ customer.c_town }}</td>
               </tr>
               <tr>
                 <td>
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_country"><i class="material-icons left">edit</i></a>
                 </td>
                 <td>Country</td>
-                <td>{{ rows[0].c_country }}</td>
+                <td>{{ customer.c_country }}</td>
               </tr>
             </tbody>
           </table>
@@ -303,12 +328,12 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_username" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_username" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="username" type="text" name="username" class="validate" required>
                     <label for="username">Username</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
                   <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">update
@@ -325,7 +350,7 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_pp" method="POST" encType="multipart/form-data" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_pp" method="POST" encType="multipart/form-data" action={{'/users/update/' ~ customer.id}}>
                   <div class="col s12">
                     <label>Choose a profile picture</label>
                     <div class="file-field input-field">
@@ -338,10 +363,10 @@
                       </div>
                     </div>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -355,15 +380,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_email" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_email" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="email" type="text" name="email" class="validate" required>
                     <label for="email">E-Mail</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -377,15 +402,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_f_name" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_f_name" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="f_name" type="text" name="f_name" class="validate" required>
                     <label for="f_name">First Name</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -399,15 +424,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_l_name" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_l_name" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="l_name" type="text" name="l_name" class="validate" required>
                     <label for="l_name">Last Name</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -421,15 +446,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_l_name" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_l_name" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input placeholder="Birthdate" id="birthdate" name="birthday" type="date" class="validate">
                     <label for="birthdate">Birthday</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -443,15 +468,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_funeffect" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_funeffect" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="funeffect" type="text" name="funeffect" class="validate" required>
                     <label for="funeffect">Fun-Effect</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -465,15 +490,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_street" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_street" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="street" type="text" name="street" class="validate" required>
                     <label for="street">Street</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -487,15 +512,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_zip" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_zip" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="zip" type="text" name="zip" class="validate" required>
                     <label for="zip">ZIP Code</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -509,15 +534,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_city" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_city" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="city" type="text" name="city" class="validate" required>
                     <label for="city">City</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>
@@ -531,15 +556,15 @@
             </div>
             <div class="modal-content">
               <div class="row">
-                <form class="col s12" name="edit_country" method="POST" action={{'/users/update/' ~ rows[0].id}}>
+                <form class="col s12" name="edit_country" method="POST" action={{'/users/update/' ~ customer.id}}>
                   <div class="input-field col s12">
                     <input id="country" type="text" name="country" class="validate" required>
                     <label for="country">Country</label>
                   </div>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel" >CANCEL
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="cancel">CANCEL
                     <i class="material-icons right">cancel</i>
                   </button>
-                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit" >UPDATE
+                  <button class="btn-small waves-effect waves-light col s6 m3 right" type="submit">UPDATE
                     <i class="material-icons right">send</i>
                   </button>
                 </form>

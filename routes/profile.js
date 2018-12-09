@@ -17,7 +17,7 @@ router.get('/:name/profile', function (req, res, next) {
     next(createError(404));
   }
 
-  var connection = mysql.createConnection({
+  mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'password',
@@ -27,12 +27,15 @@ router.get('/:name/profile', function (req, res, next) {
     connection.end();
     return result;
   }).then(function (results) {
+    if (req.cookies.ppath === undefined) {
+      res.cookie('ppath', results[0].ppath);
+    }
     res.render('profile', {
       app_title: 'Beautizy - Profile',
       active: 'profile',
       urls: req.baseUrl + '/' + req.params.name,
       cookies: req.cookies,
-      rows: results
+      customer: results[0]
     });
   });
 });
@@ -46,25 +49,32 @@ router.get('/:name/offers', function (req, res, next) {
     next(createError(404));
   }
 
-  var connection = mysql.createConnection({
+  mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'password',
     database: 'beautizyapp'
   }).then(function (connection) {
-    var result = connection.query("SELECT * FROM beautizyapp.customer join (beautizyapp.offer, beautizyapp.gallery) "
-      + "ON (beautizyapp.offer.seller_id = beautizyapp.customer.id AND beautizyapp.offer.id = beautizyapp.gallery.offer_id) where beautizyapp.customer.id ="
-      + req.cookies.userid + " order by beautizyapp.offer.o_since desc;");
-    connection.end();
-    return result;
-  }).then(function (results) {
-    res.render('profile', {
-      app_title: 'Beautizy - Profile',
-      active: 'offers',
-      urls: req.baseUrl + '/' + req.params.name,
-      cookies: req.cookies,
-      rows: results
-    });
+    var data = {};
+    connection.query("SELECT * FROM beautizyapp.customer WHERE beautizyapp.customer.id=" + req.cookies.userid + ";")
+      .then(function (customer) {
+        data.customer = customer;
+        connection.query("SELECT * FROM beautizyapp.offer WHERE beautizyapp.offer.seller_id =" + req.cookies.userid + ";")
+          .then(function (offers) {
+            data.offers = offers;
+            //todo for each offer gather pictures and so on...
+            // connection.query("SELECT * FROM beautizyapp.gallery WHERE offer_id="++";");
+            connection.end();
+            res.render('profile', {
+              app_title: 'Beautizy - Profile',
+              active: 'offers',
+              urls: req.baseUrl + '/' + req.params.name,
+              cookies: req.cookies,
+              customer: data.customer[0],
+              offers: data.offers
+            });
+          });
+      });
   });
 });
 
@@ -77,25 +87,36 @@ router.get('/:name/orders', function (req, res, next) {
     next(createError(404));
   }
 
-  var connection = mysql.createConnection({
+  if (req.cookies === {} || req.cookies === undefined) {
+    next(createError(404));
+  }
+
+  mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'password',
     database: 'beautizyapp'
   }).then(function (connection) {
-    var result = connection.query("SELECT * FROM beautizyapp.customer join (beautizyapp.offer, beautizyapp.gallery) " +
-      "ON (beautizyapp.offer.seller_id = beautizyapp.customer.id AND beautizyapp.offer.id = beautizyapp.gallery.offer_id) where beautizyapp.customer.id = " + req.cookies.userid
-      + " order by beautizyapp.offer.o_since desc;");
-    connection.end();
-    return result;
-  }).then(function (results) {
-    res.render('profile', {
-      app_title: 'Beautizy - Profile',
-      active: 'orders',
-      urls: req.baseUrl + '/' + req.params.name,
-      cookies: req.cookies,
-      rows: results
-    });
+    var data = {};
+    connection.query("SELECT * FROM beautizyapp.customer WHERE beautizyapp.customer.id=" + req.cookies.userid + ";")
+      .then(function (customer) {
+        data.customer = customer;
+        connection.query("SELECT * FROM beautizyapp.command WHERE beautizyapp.command.customer_id=" + req.cookies.userid + ";")
+          .then(function (orders) {
+            data.orders = orders;
+            //todo for each offer gather pictures and so on...
+            // connection.query("SELECT * FROM beautizyapp.gallery WHERE offer_id="++";");
+            connection.end();
+            res.render('profile', {
+              app_title: 'Beautizy - Profile',
+              active: 'orders',
+              urls: req.baseUrl + '/' + req.params.name,
+              cookies: req.cookies,
+              customer: data.customer[0],
+              orders: data.orders
+            });
+          });
+      });
   });
 });
 
