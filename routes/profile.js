@@ -55,23 +55,24 @@ router.get('/:name/offers', function (req, res, next) {
     password: 'password',
     database: 'beautizyapp'
   }).then(function (connection) {
-    var data = {};
+    var dataFor = {};
     connection.query("SELECT * FROM beautizyapp.customer WHERE beautizyapp.customer.id=" + req.cookies.userid + ";")
       .then(function (customer) {
-        data.customer = customer;
-        connection.query("SELECT * FROM beautizyapp.offer WHERE beautizyapp.offer.seller_id =" + req.cookies.userid + ";")
+        dataFor.customer = customer;
+        var query = "SELECT * FROM beautizyapp.offer join beautizyapp.gallery " +
+          "on beautizyapp.offer.id = beautizyapp.gallery.offer_id " +
+          "and beautizyapp.offer.seller_id = " + req.cookies.userid + ";";
+        connection.query(query)
           .then(function (offers) {
-            data.offers = offers;
-            //todo for each offer gather pictures and so on...
-            // connection.query("SELECT * FROM beautizyapp.gallery WHERE offer_id="++";");
+            dataFor.offers = offers;
             connection.end();
             res.render('profile', {
               app_title: 'Beautizy - Profile',
               active: 'offers',
               urls: req.baseUrl + '/' + req.params.name,
               cookies: req.cookies,
-              customer: data.customer[0],
-              offers: data.offers
+              customer: dataFor.customer[0],
+              offers: dataFor.offers
             });
           });
       });
@@ -97,13 +98,13 @@ router.get('/:name/orders', function (req, res, next) {
     password: 'password',
     database: 'beautizyapp'
   }).then(function (connection) {
-    var data = {};
+    var dataFor = {};
     connection.query("SELECT * FROM beautizyapp.customer WHERE beautizyapp.customer.id=" + req.cookies.userid + ";")
       .then(function (customer) {
-        data.customer = customer;
+        dataFor.customer = customer;
         connection.query("SELECT * FROM beautizyapp.command WHERE beautizyapp.command.customer_id=" + req.cookies.userid + ";")
           .then(function (orders) {
-            data.orders = orders;
+            dataFor.orders = orders;
             //todo for each offer gather pictures and so on...
             // connection.query("SELECT * FROM beautizyapp.gallery WHERE offer_id="++";");
             connection.end();
@@ -112,8 +113,8 @@ router.get('/:name/orders', function (req, res, next) {
               active: 'orders',
               urls: req.baseUrl + '/' + req.params.name,
               cookies: req.cookies,
-              customer: data.customer[0],
-              orders: data.orders
+              customer: dataFor.customer[0],
+              orders: dataFor.orders
             });
           });
       });

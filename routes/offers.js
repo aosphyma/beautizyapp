@@ -9,53 +9,59 @@ router.post('/', function (request, response, next) {
     var title = request.body.title;
     var desc = request.body.description;
     var price = Number(Number(request.body.price) + Number('3.00'));
-    var username = 'bla'; // todo use it from the cookies
+    // todo use it from the cookies
     var id = 5; // todo use it from the cookies
-    var connect = mysql.createConnection({
+    mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'password',
         database: 'beautizyapp'
     }).then(function (connection) {
-        connection.query("insert into beautizyapp.offer" +
+        var query = "insert into beautizyapp.offer " +
             "set beautizyapp.offer.o_title='" + title + "', " +
-            "beautizyapp.offer.o_description ='" + desc + "'," +
+            "beautizyapp.offer.o_description ='" + desc + "', " +
             "beautizyapp.offer.price= " + price + ",  " +
             "seller_id = (" +
             "select id from beautizyapp.customer where id=" + request.cookies.userid +
-            ");")
-            .then(function (result) {
+            ");";
+        connection.query(query).
+            then(function (result) {
                 if (request.files) {
                     var pp = '';
-                    request.files.pictures.forEach(item => {
-                        (async () => {
-                            pp = '/images/offers/' + item.name;
-                            await item.mv(path.join(__dirname, '../public', pp), function (err) {
-                                if (err) {
-                                    next(createError(500));
-                                }
-                            });
-                            console.log('File moved: ', pp);
-                        })();
-                        connection.query("insert into beautizyapp.gallery" +
-                            "set g_title='" + title + "'," +
-                            "g_description='" + desc + "'," +
-                            "ppath = '" + pp + "'," +
+                    (async () => {
+                        pp = '/images/offers/' + request.files.pictures.name;
+                        await request.files.pictures.mv(path.join(__dirname, '../public', pp), function (err) {
+                            if (err) {
+                                next(createError(500));
+                            }
+                        });
+                        console.log('file uploaded');
+                    })();
+                    connection.query("insert into beautizyapp.gallery " +
+                            "set g_title='" + title + "', " +
+                            "g_description='" + desc + "', " +
+                            "path = '" + pp + "', " +
                             "offer_id = (select id from beautizyapp.offer where beautizyapp.offer.id = '" + result.insertId + "');");
-                    });
+                    // request.files.pictures.forEach(item => {
+                    //     (async () => {
+                    //         pp = '/images/offers/' + item.name;
+                    //         await item.mv(path.join(__dirname, '../public', pp), function (err) {
+                    //             if (err) {
+                    //                 next(createError(500));
+                    //             }
+                    //         });
+                    //     })();
+                    //     connection.query("insert into beautizyapp.gallery " +
+                    //         "set g_title='" + title + "', " +
+                    //         "g_description='" + desc + "', " +
+                    //         "path = '" + pp + "', " +
+                    //         "offer_id = (select id from beautizyapp.offer where beautizyapp.offer.id = '" + result.insertId + "');");
+                    // });
                 }
                 connection.end();
             });
     }).then(function () {
-        response.redirect('/profiles/' + username + '/offers');
+        response.redirect('/profiles/' + request.cookies.username + '/offers');
     });
 });
-
-
-
-
-
-
-
-
 module.exports = router;

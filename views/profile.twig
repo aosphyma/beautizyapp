@@ -155,7 +155,7 @@
               <label for="offer_title">Title</label>
             </div>
             <div class="col s12">
-              <label>multiple File Input</label>
+              {# <label>multiple File Input</label>
               <div class="file-field input-field">
                 <div class="waves-effect waves-light btn">
                   <span>Browse</span>
@@ -164,6 +164,16 @@
 
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text" placeholder="Upload multiple files" />
+                </div>
+              </div> #}
+              <label>Choose your best for this offer</label>
+              <div class="file-field input-field">
+                <div class="waves-effect waves-light btn">
+                  <span>Browse</span>
+                  <input type="file" accept="image/*" name="pictures" />
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload a picture" />
                 </div>
               </div>
             </div>
@@ -203,11 +213,11 @@
               <img class="activator" src={{row.path}}>
             </div>
             <div class="card-action">
-              <span class="card-title activator grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">more_vert</i></span>
+              <span class="card-title activator grey-text text-darken-4">{{row.o_title ~ ' for      ' ~ row.price ~ '€'}}<i class="material-icons right">more_vert</i></span>
               <p><a href="#">Place an order</a></p>
             </div>
             <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">close</i></span>
+              <span class="card-title grey-text text-darken-4">{{row.o_title ~ ' for      ' ~ row.price ~ '€'}}<i class="material-icons right">close</i></span>
               <p>{{row.o_description}}</p>
             </div>
           </div>
