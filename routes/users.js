@@ -23,6 +23,7 @@ router.post('/update/:id', function (req, res, next) {
           next(createError(500));
         }
       });
+      console.log('pp: ', pp);
     })();
   }
 
@@ -65,6 +66,7 @@ router.post('/update/:id', function (req, res, next) {
     }
     if (req.body.birthday && query === "") {
       query = "UPDATE `beautizyapp`.`customer` SET `birthday`='" + (req.body.birthday) + "' WHERE `id`='" + (req.params.id) + "';";
+      console.log('query: ', query);
     }
 
 
