@@ -22,4 +22,26 @@
         </form>
     </div>
 </div>
+<div class="row">
+    {% for row in results %}
+    <div class="col m1 l1"></div>
+    <div class="col s12 m5 l2">
+        <div class="row">
+            <div class="card sticky-action hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src={{row.path}}>
+                </div>
+                <div class="card-action">
+                    <span class="card-title activator grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">more_vert</i></span>
+                    <p><a href="#">Place an order</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">close</i></span>
+                    <p>{{row.o_description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
