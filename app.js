@@ -14,6 +14,7 @@ var usersRouter = require('./routes/users');
 var profileRouter = require('./routes/profile');
 var aboutRouter = require('./routes/about');
 var offerRouter = require('./routes/offers');
+var searchRouter = require('./routes/search');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use(favicon(path.join(__dirname, 'public', '/images/beautizy.ico')));
 
 // routes
 app.use('/', indexRouter);
+app.use('/search', searchRouter);
 app.use('/users', usersRouter);
 app.use('/profiles', profileRouter);
 app.use('/about', aboutRouter);

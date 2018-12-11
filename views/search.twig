@@ -1,0 +1,25 @@
+{% extends 'layout.twig' %}
+{% set active_nav = 'search' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <form class="col s12" action="/search" method="POST">
+            <div class="row valign-wrapper">
+                <div class="input-field col s12 m8 l4">
+                    <i class="material-icons prefix">location_searching</i>
+                    <input name="place" id="place" type="text" class="autocomplete" required>
+                    <label for="place">Place</label>
+                </div>
+                <div class="input-field col s12 m8 l4">
+                    <i class="material-icons prefix">whatshot</i>
+                    <input name="hairstyle" id="hairstyle" type="text" class="validate">
+                    <label for="hairstyle">Hairstyle</label>
+                </div>
+                <button class="btn waves-effect waves-light purple darken-2" type="submit">Search
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
