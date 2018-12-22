@@ -36,6 +36,9 @@
       <p>hairstyle:{{hairstyle}}</p>
     </div>
     {% endif %}
+    {% for d in digests %}
+      <div>{{ d }}</div>
+    {% endfor %}
     <div class="col s12 m6 pull-m3 push-m3">
       next steps: <br>
       -get from the server (search, items) <br>

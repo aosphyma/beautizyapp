@@ -2,7 +2,32 @@ var express = require('express');
 var createError = require('http-errors');
 var mysql = require('promise-mysql');
 var path = require('path');
+var crypto = require('crypto');
+
+
 var router = express.Router();
+
+var a = 'aes-256-ctr';
+var p = 'd6F3Efeq';
+
+function encrypt(plaintext) {
+  var cipher = crypto.createCipher(a, p)
+  var crypted = cipher.update(plaintext, 'utf8', 'hex')
+  crypted += cipher.final('hex');
+  return crypted;
+
+}
+
+function decrypt(ciphertext) {
+  var decipher = crypto.createDecipher(a, p)
+  var decripted = decipher.update(ciphertext, 'hex', 'utf8')
+  decripted += decipher.final('utf8');
+  return decripted;
+}
+
+function gethashValue(str) {
+  return crypto.createHash('SHA1').update(crypto.createHash('SHA512').update(' ' + str + ' ').digest('hex')).digest('hex');
+}
 
 router.get('/logout', function (req, res, next) {
   if (req.cookies === {} || req.cookies === undefined) {
@@ -172,29 +197,35 @@ router.post('/signup', function (req, res, next) {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'beautizyapp'
+    database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     var email = req.body.email;
-    // todo secure the pass with SHA236
     var password = req.body.pass1;
-    var username = password.slice(1, password.indexOf('@'));
+    var username = password.slice(0, email.indexOf('@'));
     if (!(/[@]/).test(email) || req.body.pass1 != req.body.pass2) {
       next(createError(500));
     }
-    var result = connection.
-      query("INSERT INTO `beautizyapp`.`customer` (`username`, `email`, `password`) VALUES ('" + username + "', '" + email + "', '" + password + "');")
+    connection.query("INSERT INTO `" + gethashValue(gethashValue('table') + 'customer') + "` (`" + gethashValue(gethashValue('column') + 'username') + "`, `" + gethashValue(gethashValue('column') + 'email') + "`, `" + gethashValue(gethashValue('column') + 'password') + "`) VALUES ('" + encrypt(username) + "', '" + encrypt(email) + "', '" + gethashValue(gethashValue('Password') + '' + gethashValue(password)) + "');")
       .then(function (data) {
-        var userdata = connection.query("SELECT username FROM beautizyapp.customer where id='" + data.insertId + "';");
-        connection.end();
-        return userdata;
+        console.log(username);
+        console.log(encrypt(username));
+        connection.query("SELECT * FROM `" + gethashValue(gethashValue('table') + 'customer') + "` where `" + gethashValue(gethashValue('column') + 'id') + "`='" + data.insertId + "';")
+          .then(function (results) {
+            connection.end();
+            var userid = gethashValue(gethashValue('column') + 'id');
+            var username = gethashValue(gethashValue('column') + 'username');
+            Object.keys(results[0]).forEach(function (key, index, arr) {
+              if (key == userid) {
+                res.cookie('userid', Object.values(results[0])[index]);
+              }
+              if (key == username) {
+                res.cookie('username', decrypt(Object.values(results[0])[index]));
+                res.redirect('/profiles/' + decrypt(Object.values(results[0])[index]) + '/profile');
+              }
+            });
+            res.redirect('/');
+          });
       });
-    return result;
-  }).then(function (results) {
-    // cookies
-    res.cookie('userid', results.id);
-    res.cookie('username', results.username);
-
-    res.redirect('/profiles/' + results[0].username + '/profile');
   });
 });
 
@@ -204,27 +235,38 @@ router.post('/login', function (req, res, next) {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'beautizyapp'
   }).then(function (connection) {
-    var result = undefined;
     var user = req.body.user;
     var pass = req.body.pass;
+    var query = "";
     if (!(/[@]/).test(user)) {
-      result = connection.query("SELECT * FROM beautizyapp.customer where username='" + user + "' and password='" + pass + "';");
-    } else {
-      result = connection.query("SELECT * FROM beautizyapp.customer where email='" + user + "' and password='" + pass + "';");
-    }
-    connection.end();
-    return result;
-  }).then(function (results) {
-    if (results === []) {
-      res.redirect('/');
-    }
-    //cookies
-    res.cookie('userid', results[0].id);
-    res.cookie('username', results[0].username);
+      query = "SELECT * FROM `" + gethashValue(gethashValue('database') + 'beautizyapp') + "`.`" + gethashValue(gethashValue('table') + 'customer')
+        + "` where `" + gethashValue(gethashValue('column') + 'username') + "`='" + encrypt(user)
+        + "' and `" + gethashValue(gethashValue('column') + 'password') + "`='" + gethashValue(gethashValue('Password') + '' + gethashValue(pass)) + "';";
 
-    res.redirect('/profiles/' + results[0].username + '/profile');
+    } else {
+      query = "SELECT * FROM `" + gethashValue(gethashValue('database') + 'beautizyapp') + "`.`" + gethashValue(gethashValue('table') + 'customer')
+        + "` where `" + gethashValue(gethashValue('column') + 'email') + "`='" + encrypt(user)
+        + "' and `" + gethashValue(gethashValue('column') + 'password') + "`='" + gethashValue(gethashValue('Password') + '' + gethashValue(pass)) + "';";
+    }
+    connection.query(query)
+      .then(function (results) {
+        if (results.length == 0) {
+          next(createError(401, '<div class="container red-text">Login failed.<br> Wrong Username and/or Password.<br> Please try aigain with correct credentials.</div>'));
+        }
+        connection.end();
+        var userid = gethashValue(gethashValue('column') + 'id');
+        var username = gethashValue(gethashValue('column') + 'username');
+        Object.keys(results[0]).forEach(function (key, index, arr) {
+          if (key == userid) {
+            res.cookie('userid', Object.values(results[0])[index]);
+          }
+          if (key == username) {
+            res.cookie('username', decrypt(Object.values(results[0])[index]));
+            res.redirect('/profiles/' + decrypt(Object.values(results[0])[index]) + '/profile');
+          }
+        });
+      });
   });
 });
 module.exports = router;

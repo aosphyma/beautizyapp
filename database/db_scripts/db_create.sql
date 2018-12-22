@@ -1,4 +1,6 @@
-CREATE TABLE if not exists `customer` (
+CREATE DATABASE IF NOT EXISTS `beautizyapp` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
@@ -18,7 +20,7 @@ CREATE TABLE if not exists `customer` (
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-CREATE TABLE if not exists `offer` (
+CREATE TABLE IF NOT EXISTS `offer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `o_title` varchar(255) NOT NULL,
   `o_description` longtext,
@@ -30,7 +32,7 @@ CREATE TABLE if not exists `offer` (
   CONSTRAINT `id` FOREIGN KEY (`seller_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
-CREATE TABLE if not exists `gallery` (
+CREATE TABLE IF NOT EXISTS `gallery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `g_title` varchar(255) DEFAULT NULL,
   `g_description` longtext,
@@ -42,7 +44,7 @@ CREATE TABLE if not exists `gallery` (
   CONSTRAINT `gallery_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE if not exists `command` (
+CREATE TABLE IF NOT EXISTS `command` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `message` longtext,
   `offer_id` int(11) DEFAULT NULL,

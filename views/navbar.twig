@@ -41,7 +41,7 @@
       <li {% if active_nav=='about' %} class="active" {% endif %}><a class="white-text" href="/about">About</a></li>
       {% if cookies.userid is not defined and not cookies.userid %}
       <li><a class="modal-trigger white-text" href="#login">Log In</a></li>
-      <li><a class="model-trigger white-text" href="#signup">Sign Up</a></li>
+      <li><a class="modal-trigger white-text" href="#signup">Sign Up</a></li>
       {% else %}
       <li {% if active_nav=='profile' %} class="active" {% endif %}><a class='dropdown-trigger white-text' data-target='responsiveprofileDropdown'
           href="#!">{{ cookies.username|capitalize }}<i class="material-icons right">arrow_drop_down</i></a>
