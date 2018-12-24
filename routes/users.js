@@ -56,41 +56,63 @@ router.post('/update/:id', function (req, res, next) {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'beautizyapp'
+    database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     var query = "";
     if (req.body.username && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `username`='" + (req.body.username) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'username') + "`='" + encrypt(req.body.username) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.email && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `email`='" + (req.body.email) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'email') + "`='" + encrypt(req.body.email) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.f_name && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `f_name`='" + (req.body.f_name) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'f_name') + "`='" + encrypt(req.body.f_name) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.l_name && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `l_name`='" + (req.body.l_name) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'l_name') + "`='" + encrypt(req.body.l_name) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.funeffect && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `c_description`='" + (req.body.funeffect) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'c_description') + "`='" + encrypt(req.body.funeffect) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.street && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `c_street`='" + (req.body.street) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'c_street') + "`='" + encrypt(req.body.street) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.zip && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `c_zip`='" + (req.body.zip) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'c_zip') + "`='" + encrypt(req.body.zip) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.city && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `c_town`='" + (req.body.city) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'c_town') + "`='" + encrypt(req.body.city) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.country && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `c_country`='" + (req.body.country) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'c_country') + "`='" + encrypt(req.body.country) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (pp && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `ppath`='" + pp + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'ppath') + "`='" + encrypt(pp) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     }
     if (req.body.birthday && query === "") {
-      query = "UPDATE `beautizyapp`.`customer` SET `birthday`='" + (req.body.birthday) + "' WHERE `id`='" + (req.params.id) + "';";
+      query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET `"
+        + gethashValue(gethashValue('column') + 'birthday') + "`='" + encrypt(req.body.birthday) + "' WHERE `"
+        + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
       console.log('query: ', query);
     }
 
@@ -100,17 +122,17 @@ router.post('/update/:id', function (req, res, next) {
       connection.query(query);
     }
 
-    query = "SELECT username FROM beautizyapp.customer where id='" + (req.params.id) + "';";
-    var result = connection.query(query);
-    connection.end();
-    return result;
-  }).then(function (results) {
-    res.redirect('/profiles/' + results[0].username + '/profile');
+    query = "SELECT `" + gethashValue(gethashValue('column') + 'username')
+      + "` FROM `" + gethashValue(gethashValue('table') + 'customer') + "` where `"
+      + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
+    var result = connection.query(query)
+      .then(function (result) {
+        connection.end();
+        console.log(result);
+        res.redirect('/profiles/' + decrypt(Object.values(result[0])[0]) + '/profile');
+      });
   });
 });
-
-
-
 
 
 router.post('/updateall/:id', function (req, res, next) {
@@ -118,7 +140,7 @@ router.post('/updateall/:id', function (req, res, next) {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'beautizyapp'
+    database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     const username = req.body.username;
     const email = req.body.email;
@@ -141,53 +163,66 @@ router.post('/updateall/:id', function (req, res, next) {
         });
       })();
     }
-    var query = "UPDATE `beautizyapp`.`customer` SET ";
+    var query = "UPDATE `" + gethashValue(gethashValue('table') + 'customer') + "` SET ";
     if (username) {
-      query += "`username`='" + (req.body.username) + "' ";
+      query += "`" + gethashValue(gethashValue('column') + 'username')
+        + "`='" + encrypt(req.body.username) + "' ";
     }
     if (email) {
-      query += ", `email`='" + (req.body.email) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'email')
+        + "`='" + encrypt(req.body.email) + "' ";
     }
     if (f_name) {
-      query += ", `f_name`='" + (req.body.f_name) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'f_name')
+        + "`='" + encrypt(req.body.f_name) + "' ";
     }
     if (l_name) {
-      query += ", `l_name`='" + (req.body.l_name) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'l_name')
+        + "`='" + encrypt(req.body.l_name) + "' ";
     }
     if (funeffect) {
-      query += ", `c_description`='" + (req.body.funeffect) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'c_description')
+        + "`='" + encrypt(req.body.funeffect) + "' ";
     }
     if (street) {
-      query += ", `c_street`='" + (req.body.street) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'c_street')
+        + "`='" + encrypt(req.body.street) + "' ";
     }
     if (zip) {
-      query += ", `c_zip`='" + (req.body.zip) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'c_zip')
+        + "`='" + encrypt(req.body.zip) + "' ";
     }
     if (city) {
-      query += ", `c_town`='" + (req.body.city) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'c_town')
+        + "`='" + encrypt(req.body.city) + "' ";
     }
     if (country) {
-      query += ", `c_country`='" + (req.body.country) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'c_country')
+        + "`='" + encrypt(req.body.country) + "' ";
     }
     if (birthday) {
-      query += ", `birthday`='" + (req.body.birthday) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'birthday')
+        + "`='" + encrypt(req.body.birthday) + "' ";
     }
     if (ppath) {
-      query += ", `ppath`='" + (req.body.ppath) + "' ";
+      query += ", `" + gethashValue(gethashValue('column') + 'ppath')
+        + "`='" + encrypt(pp) + "' ";
     }
 
 
-    query += "WHERE `id`='" + (req.params.id) + "';";
+    query += "WHERE `" + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     if (query != "") {
       connection.query(query);
     }
 
-    query = "SELECT username FROM beautizyapp.customer where id='" + (req.params.id) + "';";
-    var result = connection.query(query);
-    connection.end();
-    return result;
-  }).then(function (results) {
-    res.redirect('/profiles/' + results[0].username + '/profile');
+    query = "SELECT `" + gethashValue(gethashValue('column') + 'username') 
+    + "` FROM `" + gethashValue(gethashValue('table') + 'customer') + "` where `" 
+    + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
+    var result = connection.query(query)
+    .then(function(res){
+      connection.end();
+      res.redirect('/profiles/' + decrypt(Object.values(res[0])[0]) + '/profile');
+    });
   });
 });
 

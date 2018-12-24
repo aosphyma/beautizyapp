@@ -97,6 +97,9 @@ function offerParser(offer) {
       case gethashValue(gethashValue('column') + 'o_since'):
         details.o_since = value;
         break;
+      case gethashValue(gethashValue('column') + 'path'):
+        details.path = value;
+        break;
       default:
         return 'error';
     }
@@ -182,7 +185,7 @@ router.get('/:name/profile', function (req, res, next) {
     connection.query("SELECT * FROM `"
       + gethashValue(gethashValue('table') + 'customer') + "` where `"
       + gethashValue(gethashValue('column') + 'username') + "`='"
-      + encrypt(req.cookies.username) + "';")
+      + encrypt(req.params.name) + "';")
       .then(function (results) {
         connection.end();
         var details = userParser(results[0]);

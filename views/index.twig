@@ -37,15 +37,11 @@
     </div>
     {% endif %}
     {% for d in digests %}
-      <div>{{ d }}</div>
+    <div>{{ d }}</div>
     {% endfor %}
     <div class="col s12 m6 pull-m3 push-m3">
       next steps: <br>
-      -get from the server (search, items) <br>
-      -search's result page <br>
       -see other's profile <br>
-      -hash the entities name and values <br>
-      -security flaws (espacially for to the database entries) <br>
     </div>
 
     <div class="carousel">
@@ -57,4 +53,29 @@
     </div>
 
   </div>
+  {% endblock %}
+  {% block script %}
+  <script>
+    function fillPlaces() {
+      var autocomplete = new google.maps.places.Autocomplete(document.getElementById('place'));
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
+          });
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+
+      autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+      });
+
+    }
+  </script>
   {% endblock %}

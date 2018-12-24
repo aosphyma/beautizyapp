@@ -42,7 +42,7 @@ function createDomainApp(req, res, next) {
                 "`" + gethashValue(gethashValue('column') + 'id') + "` int(11) NOT NULL AUTO_INCREMENT," +
                 "`" + gethashValue(gethashValue('column') + 'o_title') + "` longtext NOT NULL," +
                 "`" + gethashValue(gethashValue('column') + 'o_description') + "` longtext," +
-                "`" + gethashValue(gethashValue('column') + 'price') + "` double NOT NULL," +
+                "`" + gethashValue(gethashValue('column') + 'price') + "` longtext NOT NULL," +
                 "`" + gethashValue(gethashValue('column') + 'seller_id') + "` int(11) DEFAULT NULL," +
                 "`" + gethashValue(gethashValue('column') + 'o_since') + "` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
                 "PRIMARY KEY (`" + gethashValue(gethashValue('column') + 'id') + "`)," +
