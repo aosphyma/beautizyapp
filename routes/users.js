@@ -236,7 +236,7 @@ router.post('/signup', function (req, res, next) {
   }).then(function (connection) {
     var email = req.body.email;
     var password = req.body.pass1;
-    var username = password.slice(0, email.indexOf('@'));
+    var username = email.slice(0, email.indexOf('@'));
     if (!(/[@]/).test(email) || req.body.pass1 != req.body.pass2) {
       next(createError(500));
     }
