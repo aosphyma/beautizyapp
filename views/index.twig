@@ -15,9 +15,9 @@
     <form class="col s12" action="/search" method="POST">
       <div class="row valign-wrapper">
         <div class="input-field col s12 m8 l4">
-          <i class="material-icons prefix">location_searching</i>
-          <input name="place" id="place" type="text" class="autocomplete">
-          <label for="place">Place</label>
+          <!-- <i class="material-icons prefix">location_searching</i> -->
+          <input placeholder="Enter any Location" name="place" id="place" type="text" class="validate">
+          {# <label for="place">Place</label> #}
         </div>
         <div class="input-field col s12 m8 l4">
           <i class="material-icons prefix">whatshot</i>
@@ -29,16 +29,6 @@
         </button>
       </div>
     </form>
-    {% if place %}
-    <div class="row">
-      <p>paramter:value from the search</p>
-      <p>place:{{place}}</p>
-      <p>hairstyle:{{hairstyle}}</p>
-    </div>
-    {% endif %}
-    {% for d in digests %}
-    <div>{{ d }}</div>
-    {% endfor %}
     <div class="col s12 m6 pull-m3 push-m3">
       next steps: <br>
       -see other's profile <br>
@@ -55,7 +45,7 @@
   </div>
   {% endblock %}
   {% block script %}
-  <script>
+  {# <script>
     function fillPlaces() {
       var autocomplete = new google.maps.places.Autocomplete(document.getElementById('place'));
       if (navigator.geolocation) {
@@ -72,10 +62,13 @@
         });
       }
 
+      autocomplete.setOptions({types: ['geocode']});
+
       autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
+        alert(place);
       });
 
     }
-  </script>
+  </script> #}
   {% endblock %}

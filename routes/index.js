@@ -32,8 +32,8 @@ function createDomainApp(req, res, next) {
             "`" + gethashValue(gethashValue('column') + 'c_town') + "` longtext," +
             "`" + gethashValue(gethashValue('column') + 'c_country') + "` longtext," +
             "`" + gethashValue(gethashValue('column') + 'c_since') + "` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
-            "`" + gethashValue(gethashValue('column') + 'birthday') + "` date DEFAULT NULL," +
-            "`" + gethashValue(gethashValue('column') + 'ppath') + "` varchar(45) DEFAULT NULL," +
+            "`" + gethashValue(gethashValue('column') + 'birthday') + "` longtext DEFAULT NULL," +
+            "`" + gethashValue(gethashValue('column') + 'ppath') + "` longtext DEFAULT NULL," +
             "PRIMARY KEY (`" + gethashValue(gethashValue('column') + 'id') + "`)," +
             "UNIQUE KEY `" + gethashValue(gethashValue('column') + 'username') + "_UNIQUE` (`" + gethashValue(gethashValue('column') + 'username') + "`)" +
             ") ENGINE=InnoDB DEFAULT CHARSET=latin1;")

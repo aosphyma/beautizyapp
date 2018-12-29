@@ -6,9 +6,9 @@
         <form class="col s12" action="/search" method="POST">
             <div class="row valign-wrapper">
                 <div class="input-field col s12 m8 l4">
-                    <i class="material-icons prefix">location_searching</i>
-                    <input name="place" id="place" type="text" class="autocomplete" required>
-                    <label for="place">Place</label>
+                    <!-- <i class="material-icons prefix">location_searching</i> -->
+                    <input placeholder="Enter any Location" name="place" id="place" type="text" class="autocomplete" required>
+                    <!-- <label for="place">Place</label> -->
                 </div>
                 <div class="input-field col s12 m8 l4">
                     <i class="material-icons prefix">whatshot</i>
@@ -32,11 +32,15 @@
                     <img class="activator" src={{row.path}}>
                 </div>
                 <div class="card-action">
-                    <span class="card-title activator grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">Place an order</a></p>
+                    <span class="card-title activator grey-text text-darken-4">{{row.o_title}} for {{row.price}} <i class="material-icons right">more_vert</i></span>
+                    {% if cookies.username != row.username %}
+                    <p><a href="#">Order</a></p>
+                    {% endif %}
+                    <p><a href={{ '/profiles/' ~ row.username ~ '/offers' }}>See More From {{ row.username }}</a></p>
+                    
                 </div>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{row.o_title}}<i class="material-icons right">close</i></span>
+                    <span class="card-title grey-text text-darken-4">{{row.o_title}} for {{row.price}}<i class="material-icons right">close</i></span>
                     <p>{{row.o_description}}</p>
                 </div>
             </div>
@@ -46,32 +50,30 @@
 </div>
 {% endblock %}
 {% block script %}
-<script>
+{# <script>
     function fillPlaces() {
-        var autocomplete = new google.maps.places.Autocomplete(document.getElementById('place'));
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var geolocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                var circle = new google.maps.Circle({
-                    center: geolocation,
-                    radius: position.coords.accuracy
-                });
-                autocomplete.setBounds(circle.getBounds());
-            });
-        }
-
-        autocomplete.setOptions({
-            types: ['(cities)'],
-            componentRestrictions: {country: 'de'}
+      var autocomplete = new google.maps.places.Autocomplete(document.getElementById('place'));
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
           });
-
-        autocomplete.addListener('place_changed', function () {
-            var place = autocomplete.getPlace();
+          autocomplete.setBounds(circle.getBounds());
         });
+      }
+
+      autocomplete.setOptions({types: ['geocode']});
+
+      autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        alert(place);
+      });
 
     }
-</script>
+  </script> #}
 {% endblock %}

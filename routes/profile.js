@@ -98,7 +98,7 @@ function offerParser(offer) {
         details.o_since = value;
         break;
       case gethashValue(gethashValue('column') + 'path'):
-        details.path = value;
+        details.path = value != null ? decrypt(value) : null;
         break;
       default:
         return 'error';
@@ -206,7 +206,7 @@ router.get('/:name/offers', function (req, res, next) {
   }
 
   if (req.cookies === {} || req.cookies.username === undefined) {
-    next(createError(401));
+    next(createError(401, 'You have to login first to see this customer\'s profile'));
   }
 
   mysql.createConnection({

@@ -35,17 +35,60 @@ function gethashValue(str) {
 
 const format = /[!@#$%^&*()_+=\[\]{};:\\|.\/?]/;
 
+function searchsParser(o_array) {
+    var offers = [];
+    o_array.forEach(function (offer, index, arr) {
+        offers[index] = searchParser(offer);
+    });
+    return offers;
+}
+function searchParser(offer) {
+    var details = {};
+    Object.keys(offer).forEach((col, index, arr) => {
+        var value = Object.values(offer)[index];
+        switch (col) {
+            case gethashValue(gethashValue('column') + 'id'):
+                details.id = value;
+                break;
+            case gethashValue(gethashValue('column') + 'o_title'):
+                details.o_title = value != null ? decrypt(value) : null;
+                break;
+            case gethashValue(gethashValue('column') + 'o_description'):
+                details.o_description = value != null ? decrypt(value) : null;
+                break;
+            case gethashValue(gethashValue('column') + 'price'):
+                details.price = value != null ? decrypt(value) : null;
+                break;
+            case gethashValue(gethashValue('column') + 'seller_id'):
+                details.seller_id = value;
+                break;
+            case gethashValue(gethashValue('column') + 'o_since'):
+                details.o_since = value;
+                break;
+            case gethashValue(gethashValue('column') + 'path'):
+                details.path = value != null ? decrypt(value) : null;
+                break;
+            case gethashValue(gethashValue('column') + 'username'):
+                details.username = value != null ? decrypt(value) : null;
+                break;
+            default:
+                return 'error';
+        }
+    });
+    return details;
+}
+
 router.post('/', function (req, res, next) {
     if (format.test(req.body.place) || format.test(req.body.hairstyle)) {
         next(createError(400));
     }
+    var address = (req.body.place).split(', ');
     mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'password',
         database: gethashValue(gethashValue('database') + 'beautizyapp')
     }).then(function (connection) {
-        console.log(req.body.place);
         connection.query(
             "SELECT `" + gethashValue(gethashValue('table') + 'offer') + "`.*, `"
             + gethashValue(gethashValue('table') + 'customer') + "`.`"
@@ -69,17 +112,19 @@ router.post('/', function (req, res, next) {
             // "locate(`"
             // + gethashValue(gethashValue('column') + 'c_street') + "`, '" + encrypt(req.body.place) + "') or " +
             "locate(`"
-            + gethashValue(gethashValue('column') + 'c_town') + "`, '" + encrypt(req.body.place) + "') or " +
+            + gethashValue(gethashValue('column') + 'c_town') + "`, '" + encrypt(address[1]) + "') or " +
+            // "locate(`"
+            // + gethashValue(gethashValue('column') + 'c_zip') + "`, '" + encrypt(req.body.place) + "') or " +
             "locate(`"
-            + gethashValue(gethashValue('column') + 'c_zip') + "`, '" + encrypt(req.body.place) + "') or " +
-            "locate(`"
-            + gethashValue(gethashValue('column') + 'c_country') + "`, '" + encrypt(req.body.place) + "'));").
-            then(function (result) {
-                console.log(result);
+            + gethashValue(gethashValue('column') + 'c_country') + "`, '" + encrypt(address[address.length - 1]) + "'));").
+            then(function (results) {
+                var data = searchsParser(results);
+                console.log(data[0].username);
+                console.log(req.cookies.username);
                 res.render('search', {
                     title: 'Beautizy - Search',
                     cookies: req.cookies,
-                    // results: result
+                    results: data
                 });
             });
     });

@@ -9,7 +9,7 @@
       <a class="center-align">
         <div class="card">
           <div class="card-image">
-            {% if active == 'profile' %}
+            {% if active == 'profile' and customer.username == cookies.username %}
             <a class="btn-floating btn-large halfway-fab modal-trigger waves-effect waves-light purple darken-2" href="#edit_pp"><i
                 class="material-icons">edit</i></a>
             {% endif %}
@@ -34,10 +34,12 @@
         <a href={{ urls~'/offers' }} class="collection-item">My Offers</a>
         {% endif %}
 
-        {% if active == 'orders' %}
-        <a href={{ urls~'/orders' }} class="collection-item active">My Orders</a>
-        {% else %}
-        <a href={{ urls~'/orders' }} class="collection-item">My Orders</a>
+        {% if customer.username == cookies.username %}
+          {% if active == 'orders' %}
+            <a href={{ urls~'/orders' }} class="collection-item active">My Orders</a>
+          {% else %}
+            <a href={{ urls~'/orders' }} class="collection-item">My Orders</a>
+          {% endif %}
         {% endif %}
 
         {# {% if active == 'profile' %}
@@ -54,7 +56,7 @@
 
   {# content rendering #}
   <div class="col s12 m8 l9">
-    {% if active == 'profile' %}
+    {% if active == 'profile' and customer.username == cookies.username %}
     <div class="row">
       <div class=" col s11 offset-s1 center">
         <a class="btn-large modal-trigger purple darken-2" href="#edit_all"><i class="material-icons left">edit</i>Edit
@@ -135,7 +137,7 @@
     {% endif %}
 
 
-    {% if active == 'offers' %}
+    {% if active == 'offers' and customer.username == cookies.username %}
     <div class="row">
       <div class=" col s11 offset-s1 center">
         <a class="btn-large modal-trigger purple darken-2" href="#offer_modal"><i class="material-icons left">add</i>new
@@ -192,7 +194,7 @@
         </div>
       </div>
     </div>
-    {% elseif active == 'orders' %}
+    {% elseif active == 'orders' and customer.username == cookies.username %}
     <div class="row">
       <div class=" col s11 offset-s1 center">
         <a class="waves-effect waves-light btn-large purple darken-2" href="/"><i class="material-icons left">add</i>new
@@ -259,70 +261,90 @@
             <tbody>
               <tr>
                 <td>
+                  {% if customer.username == cookies.username %}
                   <a class="btn-small modal-trigger purple darken-2" href="#edit_username"><i class="material-icons left">edit</i></a>
+                  {% endif %}
                 </td>
                 <td>Username </td>
                 <td>{{ customer.username }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_email"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_email"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>E-Mail</td>
                 <td>{{ customer.email }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_f_name"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_f_name"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>First Name</td>
                 <td>{{ customer.f_name }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_l_name"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_l_name"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>Last Name</td>
                 <td>{{ customer.l_name }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_birthday"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_birthday"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>Birthday</td>
                 <td>{{ customer.birthday }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_funeffect"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_funeffect"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>Fun-Effect</td>
                 <td>{{ customer.c_description }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_street"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_street"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>street</td>
                 <td>{{ customer.c_street }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_zip"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_zip"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>ZIP</td>
                 <td>{{ customer.c_zip }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_city"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_city"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>City</td>
                 <td>{{ customer.c_town }}</td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn-small modal-trigger purple darken-2" href="#edit_country"><i class="material-icons left">edit</i></a>
+                    {% if customer.username == cookies.username %}
+                    <a class="btn-small modal-trigger purple darken-2" href="#edit_country"><i class="material-icons left">edit</i></a>
+                    {% endif %}
                 </td>
                 <td>Country</td>
                 <td>{{ customer.c_country }}</td>
