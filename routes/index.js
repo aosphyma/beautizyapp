@@ -95,8 +95,4 @@ router.get('/', function (req, res, next) {
     info: 'Please beware that you can use the search bar to search for anyone to make you a hairstylte'
   });
 });
-
-router.get('/createdatabase', function (req, res, next) {
-  createDomainApp(req, res, next);
-})
 module.exports = router;
