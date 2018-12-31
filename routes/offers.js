@@ -50,8 +50,8 @@ router.post('/', function (request, response, next) {
     var id = 5; // todo use it from the cookies
     mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: 'password',
+        user: 'beautizy-root',
+        password: 'Beauty1518',
         database: gethashValue(gethashValue('database') + 'beautizyapp')
     }).then(function (connection) {
         var query = "insert into `" + gethashValue(gethashValue('table') + 'offer') +
@@ -84,7 +84,7 @@ router.post('/', function (request, response, next) {
                         + gethashValue(gethashValue('column') + 'id') + "` from `"
                         + gethashValue(gethashValue('table') + 'offer') + "` where `"
                         + gethashValue(gethashValue('column') + 'id') + "`='" + result.insertId + "');")
-                        .then(function(result){
+                        .then(function (result) {
                             connection.end();
                             response.redirect('/profiles/' + request.cookies.username + '/offers');
                         });
@@ -104,7 +104,7 @@ router.post('/', function (request, response, next) {
                     //         "offer_id = (select id from beautizyapp.offer where beautizyapp.offer.id = '" + result.insertId + "');");
                     // });
                 }
-                
+
             });
     });
 });

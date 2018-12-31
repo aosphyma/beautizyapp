@@ -178,8 +178,8 @@ router.get('/:name/profile', function (req, res, next) {
 
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
     database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     connection.query("SELECT * FROM `"
@@ -211,14 +211,14 @@ router.get('/:name/offers', function (req, res, next) {
 
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
     database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     var dataFor = {};
     connection.query("SELECT * FROM `"
       + gethashValue(gethashValue('table') + 'customer') + "` WHERE `"
-      + gethashValue(gethashValue('column') + 'id') + "`=" + req.cookies.userid + ";")
+      + gethashValue(gethashValue('column') + 'username') + "`='" + encrypt(req.params.name) + "';")
       .then(function (customer) {
         dataFor.customer = userParser(customer[0]);
         var query = "SELECT * FROM `"
@@ -226,7 +226,7 @@ router.get('/:name/offers', function (req, res, next) {
           + gethashValue(gethashValue('table') + 'gallery') + "` " +
           "on `" + gethashValue(gethashValue('table') + 'offer') + "`.`" + gethashValue(gethashValue('column') + 'id')
           + "` = `" + gethashValue(gethashValue('table') + 'gallery') + "`.`" + gethashValue(gethashValue('column') + 'offer_id') + "` " +
-          "and `" + gethashValue(gethashValue('table') + 'offer') + "`.`" + gethashValue(gethashValue('column') + 'seller_id') + "` = " + req.cookies.userid + ";";
+          "and `" + gethashValue(gethashValue('table') + 'offer') + "`.`" + gethashValue(gethashValue('column') + 'seller_id') + "` = " + dataFor.customer.id + ";";
         connection.query(query)
           .then(function (offers) {
             connection.end();
@@ -260,8 +260,8 @@ router.get('/:name/orders', function (req, res, next) {
 
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
     database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     var dataFor = {};

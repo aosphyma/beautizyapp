@@ -54,8 +54,8 @@ router.post('/update/:id', function (req, res, next) {
 
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
     database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     var query = "";
@@ -138,8 +138,8 @@ router.post('/update/:id', function (req, res, next) {
 router.post('/updateall/:id', function (req, res, next) {
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
     database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     const username = req.body.username;
@@ -215,14 +215,14 @@ router.post('/updateall/:id', function (req, res, next) {
       connection.query(query);
     }
 
-    query = "SELECT `" + gethashValue(gethashValue('column') + 'username') 
-    + "` FROM `" + gethashValue(gethashValue('table') + 'customer') + "` where `" 
-    + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
+    query = "SELECT `" + gethashValue(gethashValue('column') + 'username')
+      + "` FROM `" + gethashValue(gethashValue('table') + 'customer') + "` where `"
+      + gethashValue(gethashValue('column') + 'id') + "`='" + (req.params.id) + "';";
     var result = connection.query(query)
-    .then(function(res){
-      connection.end();
-      res.redirect('/profiles/' + decrypt(Object.values(res[0])[0]) + '/profile');
-    });
+      .then(function (res) {
+        connection.end();
+        res.redirect('/profiles/' + decrypt(Object.values(res[0])[0]) + '/profile');
+      });
   });
 });
 
@@ -230,8 +230,8 @@ router.post('/updateall/:id', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
     database: gethashValue(gethashValue('database') + 'beautizyapp')
   }).then(function (connection) {
     var email = req.body.email;
@@ -268,8 +268,8 @@ router.post('/signup', function (req, res, next) {
 router.post('/login', function (req, res, next) {
   mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'beautizy-root',
+    password: 'Beauty1518',
   }).then(function (connection) {
     var user = req.body.user;
     var pass = req.body.pass;

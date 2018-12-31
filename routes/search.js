@@ -85,8 +85,8 @@ router.post('/', function (req, res, next) {
     var address = (req.body.place).split(', ');
     mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: 'password',
+        user: 'beautizy-root',
+        password: 'Beauty1518',
         database: gethashValue(gethashValue('database') + 'beautizyapp')
     }).then(function (connection) {
         connection.query(
