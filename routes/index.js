@@ -75,8 +75,7 @@ function createDomainApp(req, res, next) {
                         "CONSTRAINT `" + gethashValue(gethashValue('column') + 'command_ibfk_2') + "` FOREIGN KEY (`" + gethashValue(gethashValue('column') + 'customer_id') + "`) REFERENCES `" + gethashValue(gethashValue('table') + 'customer') + "` (`" + gethashValue(gethashValue('column') + 'id') + "`)" +
                         ") ENGINE=InnoDB DEFAULT CHARSET=latin1;")
                         .then(function (result) {
-                          console.log(result);
-                          connection.end
+                          connection.end();
                           res.redirect('/');
                         });
                     });
@@ -88,6 +87,7 @@ function createDomainApp(req, res, next) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  // createDomainApp(req, res, next);
   res.render('index', {
     app_title: 'Beautizy',
     title: 'Beautizy',
