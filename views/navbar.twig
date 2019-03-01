@@ -56,9 +56,9 @@
   <div class="row modal-header purple darken-2">
     <h2 class="center-align white-text">Log in</h2>
   </div>
-  <div class="row modal-content">
+  <div class="modal-content">
     <div class="row">
-      <form class="col s12 m6" action="/users/login" method="POST" name="login">
+      <form action="/users/login" method="POST" name="login">
         <div class="row">
           <div class="input-field col s12">
             <input id="user" name="user" type="text" class="validate">
@@ -77,7 +77,7 @@
           </button>
         </div>
       </form>
-      <div class="col s12 m6">
+      {# <div class="col s12 m6">
         <div class="row">
           <a href="#" class="btn waves-effect waves-light col s12 red" name="google">login with google </a>
         </div>
@@ -87,7 +87,7 @@
         <div class="row">
           <a href="#" class="btn waves-effect waves-light col s12 cyan" name="twitter">login with twitter </a>
         </div>
-      </div>
+      </div> #}
     </div>
   </div>
 </div>
@@ -97,9 +97,9 @@
   <div class="row modal-header purple darken-2">
     <h2 class="center-align white-text">Sign up</h2>
   </div>
-  <div class="row modal-content">
-    <div class="row">
-      <form class="col s12 m6" action="/users/signup" method="POST">
+  <div class="modal-content">
+    {# <div class="row"> #}
+      <form action="/users/signup" method="POST">
         <div class="row">
           <div class="input-field col s12">
             <input id="email" name="email" type="email" class="validate" required>
@@ -119,7 +119,7 @@
           </button>
         </div>
       </form>
-      <div class="col s12 m6">
+      {# <div class="col s12 m6">
         <div class="row">
           <a href="#" class="btn waves-effect waves-light col s12 red" name="google">signup with google </a>
         </div>
@@ -129,7 +129,7 @@
         <div class="row">
           <a href="#" class="btn waves-effect waves-light col s12 cyan" name="twitter">signup with twitter </a>
         </div>
-      </div>
-    </div>
+      </div> #}
+    {# </div> #}
   </div>
 </div>
