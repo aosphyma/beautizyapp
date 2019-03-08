@@ -44,7 +44,8 @@ function gethashValue(str) {
 router.post('/', function (request, response, next) {
     var title = request.body.title;
     var desc = request.body.description;
-    var price = Number(Number(request.body.price) + Number('3.00'));
+    //var price = Number(Number(request.body.price) + Number('3.00'));
+    var price = Number(Number(request.body.price));
     var str_price = String(price);
     // todo use it from the cookies
     var id = 5; // todo use it from the cookies
